@@ -20,6 +20,7 @@ struct Point
     Point getSymmetric(const Line &line) const;
     Point getInversion(const Circle &circle) const;
     std::string getString() const;
+    Point round(unsigned n) const;
 
     Point operator -() const;
     friend double getDistance(const Point &first, const Point &second);
@@ -120,6 +121,14 @@ Point Point::getInversion(const Circle &circle) const
 std::string Point::getString() const
 {
     return "{"+std::to_string(x)+";"+std::to_string(y)+"}";
+}
+Point Point::round(unsigned n) const
+{
+    Point res;
+    auto power = static_cast<unsigned>(pow(10,n));
+    res.x = std::round(x*power)/power;
+    res.y = std::round(y*power)/power;
+    return res;
 }
 Point Point::operator -() const
 {

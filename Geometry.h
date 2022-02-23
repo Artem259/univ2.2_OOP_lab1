@@ -26,6 +26,8 @@ struct Point
     friend std::ostream& operator <<(std::ostream &ofs, const Point &point);
     friend bool operator ==(const Point &first, const Point &second);
     friend bool operator !=(const Point &first, const Point &second);
+    friend bool operator >(const Point &first, const Point &second);
+    friend bool operator <(const Point &first, const Point &second);
     friend Point operator +(const Point &first, const Point &second);
     friend Point operator -(const Point &first, const Point &second);
 };
@@ -139,6 +141,17 @@ bool operator ==(const Point &first, const Point &second)
 bool operator !=(const Point &first, const Point &second)
 {
     return !(first==second);
+}
+bool operator >(const Point &first, const Point &second)
+{
+    if(first.x>second.x) return true;
+    if(first.x<second.x) return false;
+    if(first.y>second.y) return true;
+    return false;
+}
+bool operator <(const Point &first, const Point &second)
+{
+    return !(first>second || first==second);
 }
 Point operator +(const Point &first, const Point &second)
 {

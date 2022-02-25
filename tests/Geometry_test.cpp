@@ -106,3 +106,57 @@ TEST(Geometry, CircleAndCircle)
     std::for_each(res.begin(), res.end(), round3);
     EXPECT_EQ(res, std::vector<Point>({}));
 }
+TEST(Geometry, LineAndCircle)
+{
+    std::vector<Point> res;
+
+    res = Line{-60,1,58} && Circle{{4,3},5};
+    std::sort(res.begin(), res.end());
+    std::for_each(res.begin(), res.end(), round3);
+    EXPECT_EQ(res, std::vector<Point>({{0.951,-0.962}, {1.084,7.062}}));
+
+    res = Line{2,-4} && Circle{{10,3},5};
+    std::sort(res.begin(), res.end());
+    std::for_each(res.begin(), res.end(), round3);
+    EXPECT_EQ(res, std::vector<Point>({}));
+
+    res = Line{0,-1,-7} && Circle{{10,3},10};
+    std::sort(res.begin(), res.end());
+    std::for_each(res.begin(), res.end(), round3);
+    EXPECT_EQ(res, std::vector<Point>({{10,-7}}));
+
+    res = Line{0,0} && Circle{{0,0},1};
+    std::sort(res.begin(), res.end());
+    std::for_each(res.begin(), res.end(), round3);
+    EXPECT_EQ(res, std::vector<Point>({{-1,0}, {1,0}}));
+
+    res = Line{1,4,-1} && Circle{{0,0},1};
+    std::sort(res.begin(), res.end());
+    std::for_each(res.begin(), res.end(), round3);
+    EXPECT_EQ(res, std::vector<Point>({{-0.882,0.471}, {1,0}}));
+
+    res = Line{1,4,-1} && Circle{{5,0},1};
+    std::sort(res.begin(), res.end());
+    std::for_each(res.begin(), res.end(), round3);
+    EXPECT_EQ(res, std::vector<Point>({{4.529,-0.882}, {5,-1}}));
+
+    res = Line{1,4.3,-1} && Circle{{5.2,-3.6},2.59};
+    std::sort(res.begin(), res.end());
+    std::for_each(res.begin(), res.end(), round3);
+    EXPECT_EQ(res, std::vector<Point>({{5.366,-1.015}, {6.192,-1.207}}));
+
+    res = Line{0,4.3,-2} && Circle{{5.2,-3.6},2.59};
+    std::sort(res.begin(), res.end());
+    std::for_each(res.begin(), res.end(), round3);
+    EXPECT_EQ(res, std::vector<Point>({}));
+
+    res = Line{0,4,4} && Circle{{1,1},2};
+    std::sort(res.begin(), res.end());
+    std::for_each(res.begin(), res.end(), round3);
+    EXPECT_EQ(res, std::vector<Point>({{1,-1}}));
+
+    res = Line{1.25,-1} && Circle{{1.44,-1.44},16};
+    std::sort(res.begin(), res.end());
+    std::for_each(res.begin(), res.end(), round3);
+    EXPECT_EQ(res, std::vector<Point>({ {-9.61,-13.012}, {10.304,11.88}}));
+}

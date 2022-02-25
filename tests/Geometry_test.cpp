@@ -8,6 +8,50 @@ void round3(Point &point)
     point = point.round(3);
 }
 
+TEST(Geometry, LineAndLine)
+{
+    Point res;
+
+    res = Line{2,3,-5} && Line{3,5,-4};
+    round3(res);
+    EXPECT_EQ(res, Point({13,-7}));
+
+    res = Line{-6,2,5} && Line{3,5,-4};
+    round3(res);
+    EXPECT_EQ(res, Point({0.917,0.25}));
+
+    res = Line{-1,-1,5} && Line{6.5,-4,50};
+    round3(res);
+    EXPECT_EQ(res, Point({-2.857,7.857}));
+
+    res = Line{-60,1,58} && Line{60,1,-59};
+    round3(res);
+    EXPECT_EQ(res, Point({0.975, 0.5}));
+
+    res = Line{-1,1,0} && Line{1,1,0};
+    round3(res);
+    EXPECT_EQ(res, Point({0, 0}));
+
+    res = Line{-60,1,58} && Line{2,-4};
+    round3(res);
+    EXPECT_EQ(res, Point({0.931, -2.138}));
+
+    res = Line{0,50,-25} && Line{0.005,-0.005, 1};
+    round3(res);
+    EXPECT_EQ(res, Point({-199.5, 0.5}));
+
+    res = Line{50,50,-25} && Line{0.005,-0.005, 1};
+    round3(res);
+    EXPECT_EQ(res, Point({-99.75, 100.25}));
+
+    res = Line{3,4,-5} && Line{6,-7, 8};
+    round3(res);
+    EXPECT_EQ(res, Point({0.067, 1.2}));
+
+    res = Line{0,4,0} && Line{1,-7, 1};
+    round3(res);
+    EXPECT_EQ(res, Point({-1, 0}));
+}
 TEST(Geometry, CircleAndCircle)
 {
     std::vector<Point> res;

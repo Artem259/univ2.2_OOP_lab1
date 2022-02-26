@@ -241,3 +241,22 @@ TEST(Geometry, SymmetricLine)
     res = Line({1,-2}).getSymmetric(Line({-1,2}));
     EXPECT_EQ(res, Line({1,-2}));
 }
+TEST(Geometry, SymmetricCircle)
+{
+    Circle res;
+
+    res = Circle({{0,0},2.22}).getSymmetric(Line({0,2}));
+    EXPECT_EQ(res, Circle({{0,4},2.22}));
+
+    res = Circle({{0,0}, 0.25}).getSymmetric(Line({1,0}));
+    EXPECT_EQ(res, Circle({{0,0}, 0.25}));
+
+    res = Circle({{0,1},4.2}).getSymmetric(Line({1,0}));
+    EXPECT_EQ(res, Circle({{1,0},4.2}));
+
+    res = Circle({{30,110},1}).getSymmetric(Line({2,0}));
+    EXPECT_EQ(res, Circle({{70,90},1}));
+
+    res = Circle({{3,15},6.66}).getSymmetric(Line({5,-3,8}));
+    EXPECT_EQ(res, Circle({{double(161)/17,double(189)/17},6.66}));
+}

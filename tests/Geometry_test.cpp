@@ -222,3 +222,22 @@ TEST(Geometry, SymmetricPoint)
     res = Point({3,15}).getSymmetric(Line({5,-3,8}));
     EXPECT_EQ(res, Point({double(161)/17,double(189)/17}));
 }
+TEST(Geometry, SymmetricLine)
+{
+    Line res;
+
+    res = Line({1,0}).getSymmetric(Line({0,0}));
+    EXPECT_EQ(res, Line({-1,0}));
+
+    res = Line({3.2,-2,1.12}).getSymmetric(Line({3.2,-2,1.12}));
+    EXPECT_EQ(res, Line({3.2,-2,1.12}));
+
+    res = Line({1,-2,-6.5}).getSymmetric(Line({1,-2,1}));
+    EXPECT_EQ(res, Line({1,-2,8.5}));
+
+    res = Line({0,-2}).getSymmetric(Line({0,5}));
+    EXPECT_EQ(res, Line({0,12}));
+
+    res = Line({1,-2}).getSymmetric(Line({-1,2}));
+    EXPECT_EQ(res, Line({1,-2}));
+}

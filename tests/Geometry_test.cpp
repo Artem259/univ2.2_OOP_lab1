@@ -203,3 +203,22 @@ TEST(Geometry, AngleCircleCircle)
     res =  getAngle(Circle{{5,2},4}, Circle{{5,2.1},3.7});
     EXPECT_EQ(roundDouble(res), roundDouble(double(-1)));
 }
+TEST(Geometry, SymmetricPoint)
+{
+    Point res;
+
+    res = Point({0,0}).getSymmetric(Line({0,2}));
+    EXPECT_EQ(res, Point({0,4}));
+
+    res = Point({0,0}).getSymmetric(Line({1,0}));
+    EXPECT_EQ(res, Point({0,0}));
+
+    res = Point({0,1}).getSymmetric(Line({1,0}));
+    EXPECT_EQ(res, Point({1,0}));
+
+    res = Point({30,110}).getSymmetric(Line({2,0}));
+    EXPECT_EQ(res, Point({70,90}));
+
+    res = Point({3,15}).getSymmetric(Line({5,-3,8}));
+    EXPECT_EQ(res, Point({double(161)/17,double(189)/17}));
+}

@@ -1,10 +1,11 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <vector>
 #include <cassert>
 #include <string>
-#include <cmath>
 
 struct Point;
 class Line;

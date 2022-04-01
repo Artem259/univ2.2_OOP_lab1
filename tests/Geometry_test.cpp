@@ -169,38 +169,38 @@ TEST(Geometry, AngleLineLine)
 {
     double res;
 
-    res =  getAngle(Line{2,3,-5}, Line{2,3,4});
+    res = getAngle(Line{2,3,-5}, Line{2,3,4});
     EXPECT_EQ(roundDouble(res), roundDouble(double(-1)));
 
-    res =  getAngle(Line{0,0}, Line{1,-10});
+    res = getAngle(Line{0,0}, Line{1,-10});
     EXPECT_EQ(roundDouble(res), roundDouble(double(M_PI/4)));
 
-    res =  getAngle(Line{0,0}, Line{0.5,-10});
+    res = getAngle(Line{0,0}, Line{0.5,-10});
     EXPECT_EQ(roundDouble(res), roundDouble(double(0.463648)));
 
-    res =  getAngle(Line{0.5,6}, Line{1,-10});
+    res = getAngle(Line{0.5,6}, Line{1,-10});
     EXPECT_EQ(roundDouble(res), roundDouble(double(0.321751)));
 
-    res =  getAngle(Line{0.5,6}, Line{0.25,100});
+    res = getAngle(Line{0.5,6}, Line{0.25,100});
     EXPECT_EQ(roundDouble(res), roundDouble(double(0.218669)));
 }
 TEST(Geometry, AngleCircleCircle)
 {
     double res;
 
-    res =  getAngle(Circle{{1.44,-1.44},16}, Circle{{14,-12.5},15});
+    res = getAngle(Circle{{1.44,-1.44},16}, Circle{{14,-12.5},15});
     EXPECT_EQ(roundDouble(res), roundDouble(double(1.1389)));
 
-    res =  getAngle(Circle{{0,2},5}, Circle{{0,-3},2});
+    res = getAngle(Circle{{0,2},5}, Circle{{0,-3},2});
     EXPECT_EQ(roundDouble(res), roundDouble(double(1.369438)));
 
-    res =  getAngle(Circle{{0,2},4}, Circle{{0,-8},6});
+    res = getAngle(Circle{{0,2},4}, Circle{{0,-8},6});
     EXPECT_EQ(roundDouble(res), roundDouble(double(0)));
 
-    res =  getAngle(Circle{{0,2},4}, Circle{{1,-8},6});
+    res = getAngle(Circle{{0,2},4}, Circle{{1,-8},6});
     EXPECT_EQ(roundDouble(res), roundDouble(double(-1)));
 
-    res =  getAngle(Circle{{5,2},4}, Circle{{5,2.1},3.7});
+    res = getAngle(Circle{{5,2},4}, Circle{{5,2.1},3.7});
     EXPECT_EQ(roundDouble(res), roundDouble(double(-1)));
 }
 TEST(Geometry, SymmetricPoint)

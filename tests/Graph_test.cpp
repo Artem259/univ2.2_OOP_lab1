@@ -6,7 +6,6 @@ TEST(Graph, TestRandomGraph)
 {
     int iter = 10000;
 
-    int seed = 0;
     std::vector<std::vector<unsigned>> matrixGraphEdges;
     std::vector<std::vector<unsigned>> listGraphEdges;
     MatrixGraph<double, double> matrixGraph;
@@ -17,13 +16,13 @@ TEST(Graph, TestRandomGraph)
         {
             case 0:
             {
-                matrixGraph.randomGraph(3,10,0.5,0,0,seed);
+                matrixGraph.randomGraph(3,10,0.5,0,0);
                 listGraph = matrixGraph;
                 break;
             }
             case 1:
             {
-                listGraph.randomGraph(3,10,0.5,0,0,seed);
+                listGraph.randomGraph(3,10,0.5,0,0);
                 matrixGraph = listGraph;
                 break;
             }
@@ -51,7 +50,6 @@ TEST(Graph, TestRandomGraph)
                 listGraph.delEdge(listGraphEdges[0][0],listGraphEdges[0][1]);
             }
         }
-        seed++;
         matrixGraph.clear();
         listGraph.clear();
     }

@@ -9,6 +9,9 @@
 #include <stack>
 #include <queue>
 
+std::random_device rd;
+std::mt19937 mt(rd());
+
 template <class T_vertices, class T_edges>
 class MatrixGraph;
 template <class T_vertices, class T_edges>
@@ -40,7 +43,7 @@ public:
     unsigned size(); //returns the number of vertices in the graph
     std::vector<std::vector<unsigned>> getEdges(); //return all edges in graph
     std::string getString(); //return a string representation of adjacency matrix
-    void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, T_vertices verticesData, T_edges edgesData, int seed);
+    void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, T_vertices verticesData, T_edges edgesData);
     //fill graph with random number of vertices and random edges
     bool stronglyConnected(); //checks if the graph is strongly connected
     bool weaklyConnected(); //checks if the graph is weakly connected
@@ -81,7 +84,7 @@ public:
     unsigned size(); //returns the number of vertices in the graph
     std::vector<std::vector<unsigned>> getEdges(); //return all edges in graph
     std::string getString(); //return a string representation of adjacency list
-    void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, T_vertices verticesData, T_edges edgesData, int seed);
+    void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, T_vertices verticesData, T_edges edgesData);
     //fill graph with random number of vertices and random edges
     bool stronglyConnected(); //checks if the graph is strongly connected
     bool weaklyConnected(); //checks if the graph is weakly connected
@@ -296,12 +299,11 @@ std::string MatrixGraph<T_vertices, T_edges>::getString()
 
 template <class T_vertices, class T_edges>
 void MatrixGraph<T_vertices, T_edges>::randomGraph(unsigned minVertices, unsigned maxVertices,
-                                                   double edgeProb, T_vertices verticesData, T_edges edgesData, int seed)
+                                                   double edgeProb, T_vertices verticesData, T_edges edgesData)
 {
     assert(minVertices<=maxVertices);
     assert(edgeProb>=0 && edgeProb<=1);
     this->clear();
-    std::mt19937 mt(seed);
     std::uniform_int_distribution<unsigned> randInt(minVertices, maxVertices);
     std::uniform_real_distribution<double> randDouble(0, 1);
     unsigned n = randInt(mt);
@@ -653,12 +655,11 @@ std::string ListGraph<T_vertices, T_edges>::getString()
 
 template <class T_vertices, class T_edges>
 void ListGraph<T_vertices, T_edges>::randomGraph(unsigned minVertices, unsigned maxVertices,
-                                                 double edgeProb, T_vertices verticesData, T_edges edgesData, int seed)
+                                                 double edgeProb, T_vertices verticesData, T_edges edgesData)
 {
     assert(minVertices<=maxVertices);
     assert(edgeProb>=0 && edgeProb<=1);
     this->clear();
-    std::mt19937 mt(seed);
     std::uniform_int_distribution<unsigned> randInt(minVertices, maxVertices);
     std::uniform_real_distribution<double> randDouble(0, 1);
     unsigned n = randInt(mt);

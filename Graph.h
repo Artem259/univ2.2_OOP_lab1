@@ -32,7 +32,8 @@ private:
     std::vector<unsigned*> BFS(unsigned start, unsigned end);
 public:
     MatrixGraph(); //empty constructor
-    explicit MatrixGraph(ListGraph<T_vertices, T_edges> &toCopy); //copy constructor
+    //MatrixGraph(MatrixGraph<T_vertices, T_edges> &toCopy); //copy constructor from MatrixGraph
+    explicit MatrixGraph(ListGraph<T_vertices, T_edges> &toCopy); //copy constructor from ListGraph
     ~MatrixGraph(); //destructor
     void addVertex(T_vertices data); //add a new vertex
     void delVertex(unsigned vertex); //delete a vertex
@@ -52,6 +53,7 @@ public:
 
     T_vertices& operator()(unsigned vertex); //get a reference to vertex
     T_edges& operator()(unsigned from, unsigned to); //get a reference to edge
+    //MatrixGraph<T_vertices, T_edges>& operator=(const MatrixGraph<T_vertices, T_edges> &toCopy); //copy MatrixGraph
     MatrixGraph<T_vertices, T_edges>& operator=(ListGraph<T_vertices, T_edges> &toCopy); //copy ListGraph
 };
 
@@ -73,7 +75,8 @@ private:
     std::vector<unsigned*> BFS(unsigned start,  unsigned end);
 public:
     ListGraph(); //empty constructor
-    explicit ListGraph(MatrixGraph<T_vertices, T_edges> &toCopy); //copy constructor
+    //ListGraph(ListGraph<T_vertices, T_edges> &toCopy); //copy constructor from ListGraph
+    explicit ListGraph(MatrixGraph<T_vertices, T_edges> &toCopy); //copy constructor from MatrixGraph
     ~ListGraph(); //destructor
     void addVertex(T_vertices data); //add a new vertex
     void delVertex(unsigned vertex); //delete a vertex
@@ -93,6 +96,7 @@ public:
 
     T_vertices& operator()(unsigned vertex); //get a reference to vertex
     T_edges& operator()(unsigned from, unsigned to); //get a reference to edge
+    //ListGraph<T_vertices, T_edges>& operator=(const ListGraph<T_vertices, T_edges> &toCopy); //copy ListGraph
     ListGraph<T_vertices, T_edges>& operator=(MatrixGraph<T_vertices, T_edges> &toCopy); //copy MatrixGraph
 };
 

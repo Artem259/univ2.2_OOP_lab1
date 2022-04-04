@@ -52,7 +52,7 @@ private:
     std::vector<T_vertices> vertices; //data in vertices
     std::vector<std::vector<T_edges*>> edges; //!connectivity matrix!
 
-    std::vector<std::vector<bool>> getMatrix() const;//returns copy of adjacency matrix (to change)
+    std::vector<std::vector<bool>> getMatrix() const; //returns copy of adjacency matrix (to change)
     bool DFS(unsigned start, const std::vector<std::vector<bool>> &matrix) const;
     std::vector<unsigned*> BFS(unsigned start, unsigned end) const;
 public:
@@ -270,8 +270,7 @@ template <class T_vertices, class T_edges>
 bool MatrixGraph<T_vertices, T_edges>::isEdgeExists(unsigned from, unsigned to) const
 {
     assert(from<verticesN && to<verticesN);
-    if(edges[from][to]) return true;
-    return false;
+    return edges[from][to];
 }
 
 template <class T_vertices, class T_edges>
@@ -339,7 +338,7 @@ void MatrixGraph<T_vertices, T_edges>::randomGraph(unsigned minVertices, unsigne
     double isEdge;
     for(unsigned i=0; i<n; i++)
     {
-        addVertex(verticesData);
+        this->addVertex(verticesData);
     }
     for(unsigned i=0; i<verticesN; i++)
     {
@@ -367,8 +366,7 @@ bool MatrixGraph<T_vertices, T_edges>::stronglyConnected() const
             swap(matrix[i][j], matrix[j][i]);
         }
     }
-    if(!DFS(0, matrix)) return false;
-    return true;
+    return DFS(0, matrix);
 }
 
 template <class T_vertices, class T_edges>
@@ -438,16 +436,14 @@ template <class T_vertices, class T_edges>
 MatrixGraph<T_vertices, T_edges>& MatrixGraph<T_vertices, T_edges>::operator=(ListGraph<T_vertices, T_edges> &toCopy)
 {
     this->clear();
-    unsigned currLen = toCopy.size();
-    for(unsigned i=0; i<currLen; i++)
+    for(unsigned i=0; i<toCopy.size(); i++)
     {
         this->addVertex(toCopy(i));
     }
     std::vector<std::vector<unsigned>> edgesCopy = toCopy.getEdges();
-    currLen = edgesCopy.size();
-    for(unsigned i=0; i<currLen; i++)
+    for(auto & i : edgesCopy)
     {
-        this->addEdge(edgesCopy[i][0], edgesCopy[i][1], toCopy(edgesCopy[i][0], edgesCopy[i][1]));
+        this->addEdge(i[0], i[1], toCopy(i[0], i[1]));
     }
     return *this;
 }
@@ -726,8 +722,7 @@ bool ListGraph<T_vertices, T_edges>::stronglyConnected() const
             list2[edges[i][j].vertex].push_back(i);
         }
     }
-    if(!DFS(0, list2)) return false;
-    return true;
+    return DFS(0, list2);
 }
 
 template <class T_vertices, class T_edges>
@@ -806,16 +801,14 @@ template <class T_vertices, class T_edges>
 ListGraph<T_vertices, T_edges>& ListGraph<T_vertices, T_edges>::operator=(MatrixGraph<T_vertices, T_edges> &toCopy)
 {
     this->clear();
-    unsigned currLen = toCopy.size();
-    for(unsigned i=0; i<currLen; i++)
+    for(unsigned i=0; i<toCopy.size(); i++)
     {
         this->addVertex(toCopy(i));
     }
     std::vector<std::vector<unsigned>> edgesCopy = toCopy.getEdges();
-    currLen = edgesCopy.size();
-    for(unsigned i=0; i<currLen; i++)
+    for(auto & i : edgesCopy)
     {
-        this->addEdge(edgesCopy[i][0], edgesCopy[i][1], toCopy(edgesCopy[i][0], edgesCopy[i][1]));
+        this->addEdge(i[0], i[1], toCopy(i[0], i[1]));
     }
     return *this;
 }

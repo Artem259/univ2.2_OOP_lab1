@@ -27,29 +27,29 @@ private:
     std::vector<T_vertices> vertices; //data in vertices
     std::vector<std::vector<T_edges*>> edges; //!connectivity matrix!
 
-    std::vector<std::vector<bool>> getMatrix(); //returns copy of adjacency matrix (to change)
-    bool DFS(unsigned start, const std::vector<std::vector<bool>> &matrix);
-    std::vector<unsigned*> BFS(unsigned start, unsigned end);
+    std::vector<std::vector<bool>> getMatrix() const;//returns copy of adjacency matrix (to change)
+    bool DFS(unsigned start, const std::vector<std::vector<bool>> &matrix) const;
+    std::vector<unsigned*> BFS(unsigned start, unsigned end) const;
 public:
     MatrixGraph(); //empty constructor
     //MatrixGraph(MatrixGraph<T_vertices, T_edges> &toCopy); //copy constructor from MatrixGraph
-    explicit MatrixGraph(ListGraph<T_vertices, T_edges> &toCopy); //copy constructor from ListGraph
+    explicit MatrixGraph(const ListGraph<T_vertices, T_edges> &toCopy); //copy constructor from ListGraph
     ~MatrixGraph(); //destructor
-    void addVertex(T_vertices data); //add a new vertex
+    void addVertex(const T_vertices &data); //add a new vertex
     void delVertex(unsigned vertex); //delete a vertex
-    void addEdge(unsigned from, unsigned to, T_edges data); //add a new edge
+    void addEdge(unsigned from, unsigned to, const T_edges &data); //add a new edge
     void delEdge(unsigned from, unsigned to); //delete an edge
     void clear(); //cleans the graph
-    bool checkEdge(unsigned from, unsigned to); //checks if there's an edge in the graph
-    unsigned size(); //returns the number of vertices in the graph
-    std::vector<std::vector<unsigned>> getEdges(); //return all edges in graph
-    std::string getString(); //return a string representation of adjacency matrix
-    void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, T_vertices verticesData, T_edges edgesData);
+    bool isEdgeExists(unsigned from, unsigned to) const; //checks if there's an edge in the graph
+    unsigned size() const; //returns the number of vertices in the graph
+    std::vector<std::vector<unsigned>> getEdges() const; //return all edges in graph
+    std::string getString() const; //return a string representation of adjacency matrix
+    void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, const T_vertices &verticesData, const T_edges &edgesData);
     //fill graph with random number of vertices and random edges
-    bool stronglyConnected(); //checks if the graph is strongly connected
-    bool weaklyConnected(); //checks if the graph is weakly connected
-    std::vector<unsigned> getRouteVertices(unsigned from, unsigned to); //returns vertices chain between 2 vertices [from-->to]
-    unsigned getRouteLength(unsigned from, unsigned to); //returns number of edges between 2 vertices (or 0, if disconnected)
+    bool stronglyConnected() const; //checks if the graph is strongly connected
+    bool weaklyConnected() const; //checks if the graph is weakly connected
+    std::vector<unsigned> getRouteVertices(unsigned from, unsigned to) const; //returns vertices chain between 2 vertices [from-->to]
+    unsigned getRouteLength(unsigned from, unsigned to) const; //returns number of edges between 2 vertices (or 0, if disconnected)
 
     T_vertices& operator()(unsigned vertex); //get a reference to vertex
     T_edges& operator()(unsigned from, unsigned to); //get a reference to edge
@@ -70,29 +70,29 @@ private:
     std::vector<T_vertices> vertices; //data in vertices
     std::vector<std::vector<edge>> edges; //!connectivity list!
 
-    std::vector<std::vector<unsigned>> getList(); //returns copy of adjacency list (to change)
-    bool DFS(unsigned start, const std::vector<std::vector<unsigned>> &list);
-    std::vector<unsigned*> BFS(unsigned start,  unsigned end);
+    std::vector<std::vector<unsigned>> getList() const; //returns copy of adjacency list (to change)
+    bool DFS(unsigned start, const std::vector<std::vector<unsigned>> &list) const;
+    std::vector<unsigned*> BFS(unsigned start, unsigned end) const;
 public:
     ListGraph(); //empty constructor
     //ListGraph(ListGraph<T_vertices, T_edges> &toCopy); //copy constructor from ListGraph
-    explicit ListGraph(MatrixGraph<T_vertices, T_edges> &toCopy); //copy constructor from MatrixGraph
+    explicit ListGraph(const MatrixGraph<T_vertices, T_edges> &toCopy); //copy constructor from MatrixGraph
     ~ListGraph(); //destructor
-    void addVertex(T_vertices data); //add a new vertex
+    void addVertex(const T_vertices &data); //add a new vertex
     void delVertex(unsigned vertex); //delete a vertex
-    void addEdge(unsigned from, unsigned to, T_edges data); //add a new edge
+    void addEdge(unsigned from, unsigned to, const T_edges &data); //add a new edge
     void delEdge(unsigned from, unsigned to); //delete an edge
     void clear(); //cleans the graph
-    bool checkEdge(unsigned from, unsigned to); //checks if there's an edge in the graph
-    unsigned size(); //returns the number of vertices in the graph
-    std::vector<std::vector<unsigned>> getEdges(); //return all edges in graph
-    std::string getString(); //return a string representation of adjacency list
-    void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, T_vertices verticesData, T_edges edgesData);
+    bool isEdgeExists(unsigned from, unsigned to) const; //checks if there's an edge in the graph
+    unsigned size() const; //returns the number of vertices in the graph
+    std::vector<std::vector<unsigned>> getEdges() const; //return all edges in graph
+    std::string getString() const; //return a string representation of adjacency list
+    void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, const T_vertices &verticesData, const T_edges &edgesData);
     //fill graph with random number of vertices and random edges
-    bool stronglyConnected(); //checks if the graph is strongly connected
-    bool weaklyConnected(); //checks if the graph is weakly connected
-    std::vector<unsigned> getRouteVertices(unsigned from, unsigned to); //returns vertices chain between 2 vertices [from-->to]
-    unsigned getRouteLength(unsigned from, unsigned to); //returns number of edges between 2 vertices (or 0, if disconnected)
+    bool stronglyConnected() const; //checks if the graph is strongly connected
+    bool weaklyConnected() const; //checks if the graph is weakly connected
+    std::vector<unsigned> getRouteVertices(unsigned from, unsigned to) const; //returns vertices chain between 2 vertices [from-->to]
+    unsigned getRouteLength(unsigned from, unsigned to) const; //returns number of edges between 2 vertices (or 0, if disconnected)
 
     T_vertices& operator()(unsigned vertex); //get a reference to vertex
     T_edges& operator()(unsigned from, unsigned to); //get a reference to edge
@@ -104,7 +104,7 @@ public:
 // functions related to class MatrixGraph
 
 template <class T_vertices, class T_edges>
-bool MatrixGraph<T_vertices, T_edges>::DFS(unsigned start, const std::vector<std::vector<bool>> &matrix)
+bool MatrixGraph<T_vertices, T_edges>::DFS(unsigned start, const std::vector<std::vector<bool>> &matrix) const
 {
     auto visited = new bool[verticesN]{false};
     std::stack<unsigned> stack;
@@ -136,7 +136,7 @@ bool MatrixGraph<T_vertices, T_edges>::DFS(unsigned start, const std::vector<std
 }
 
 template <class T_vertices, class T_edges>
-std::vector<unsigned*> MatrixGraph<T_vertices, T_edges>::BFS(unsigned start, unsigned end)
+std::vector<unsigned*> MatrixGraph<T_vertices, T_edges>::BFS(unsigned start, unsigned end) const
 {
     std::vector<unsigned*> prev{verticesN,nullptr};
     auto visited = new bool[verticesN]{false};
@@ -171,7 +171,7 @@ MatrixGraph<T_vertices, T_edges>::MatrixGraph()
 }
 
 template <class T_vertices, class T_edges>
-MatrixGraph<T_vertices, T_edges>::MatrixGraph(ListGraph<T_vertices, T_edges> &toCopy)
+MatrixGraph<T_vertices, T_edges>::MatrixGraph(const ListGraph<T_vertices, T_edges> &toCopy)
 {
     verticesN = 0;
     *this = toCopy;
@@ -184,7 +184,7 @@ MatrixGraph<T_vertices, T_edges>::~MatrixGraph()
 }
 
 template <class T_vertices, class T_edges>
-void MatrixGraph<T_vertices, T_edges>::addVertex(T_vertices data)
+void MatrixGraph<T_vertices, T_edges>::addVertex(const T_vertices &data)
 {
     vertices.push_back(data);
     edges.push_back(std::vector<T_edges*> (edges.size()+1, nullptr));
@@ -216,7 +216,7 @@ void MatrixGraph<T_vertices, T_edges>::delVertex(unsigned vertex)
 }
 
 template <class T_vertices, class T_edges>
-void MatrixGraph<T_vertices, T_edges>::addEdge(unsigned from, unsigned to, T_edges data)
+void MatrixGraph<T_vertices, T_edges>::addEdge(unsigned from, unsigned to, const T_edges &data)
 {
     assert(from<verticesN && to<verticesN);
     assert(!edges[from][to]);
@@ -242,7 +242,7 @@ void MatrixGraph<T_vertices, T_edges>::clear()
 }
 
 template <class T_vertices, class T_edges>
-bool MatrixGraph<T_vertices, T_edges>::checkEdge(unsigned from, unsigned to)
+bool MatrixGraph<T_vertices, T_edges>::isEdgeExists(unsigned from, unsigned to) const
 {
     assert(from<verticesN && to<verticesN);
     if(edges[from][to]) return true;
@@ -250,13 +250,13 @@ bool MatrixGraph<T_vertices, T_edges>::checkEdge(unsigned from, unsigned to)
 }
 
 template <class T_vertices, class T_edges>
-unsigned MatrixGraph<T_vertices, T_edges>::size()
+unsigned MatrixGraph<T_vertices, T_edges>::size() const
 {
     return verticesN;
 }
 
 template <class T_vertices, class T_edges>
-std::vector<std::vector<unsigned>> MatrixGraph<T_vertices, T_edges>::getEdges()
+std::vector<std::vector<unsigned>> MatrixGraph<T_vertices, T_edges>::getEdges() const
 {
     std::vector<std::vector<unsigned>> res;
     for(unsigned i=0; i<verticesN; i++)
@@ -270,7 +270,7 @@ std::vector<std::vector<unsigned>> MatrixGraph<T_vertices, T_edges>::getEdges()
 }
 
 template <class T_vertices, class T_edges>
-std::vector<std::vector<bool>> MatrixGraph<T_vertices, T_edges>::getMatrix()
+std::vector<std::vector<bool>> MatrixGraph<T_vertices, T_edges>::getMatrix() const
 {
     std::vector<std::vector<bool>> res;
     for(unsigned i=0; i<verticesN; i++)
@@ -286,7 +286,7 @@ std::vector<std::vector<bool>> MatrixGraph<T_vertices, T_edges>::getMatrix()
 }
 
 template <class T_vertices, class T_edges>
-std::string MatrixGraph<T_vertices, T_edges>::getString()
+std::string MatrixGraph<T_vertices, T_edges>::getString() const
 {
     std::string res;
     for(unsigned i=0; i<verticesN; i++)
@@ -303,7 +303,7 @@ std::string MatrixGraph<T_vertices, T_edges>::getString()
 
 template <class T_vertices, class T_edges>
 void MatrixGraph<T_vertices, T_edges>::randomGraph(unsigned minVertices, unsigned maxVertices,
-                                                   double edgeProb, T_vertices verticesData, T_edges edgesData)
+                                                   double edgeProb, const T_vertices &verticesData, const T_edges &edgesData)
 {
     assert(minVertices<=maxVertices);
     assert(edgeProb>=0 && edgeProb<=1);
@@ -330,7 +330,7 @@ void MatrixGraph<T_vertices, T_edges>::randomGraph(unsigned minVertices, unsigne
 }
 
 template <class T_vertices, class T_edges>
-bool MatrixGraph<T_vertices, T_edges>::stronglyConnected()
+bool MatrixGraph<T_vertices, T_edges>::stronglyConnected() const
 {
     assert(verticesN>0);
     auto matrix = this->getMatrix();
@@ -347,7 +347,7 @@ bool MatrixGraph<T_vertices, T_edges>::stronglyConnected()
 }
 
 template <class T_vertices, class T_edges>
-bool MatrixGraph<T_vertices, T_edges>::weaklyConnected()
+bool MatrixGraph<T_vertices, T_edges>::weaklyConnected() const
 {
     assert(verticesN>0);
     auto matrix = this->getMatrix();
@@ -364,7 +364,7 @@ bool MatrixGraph<T_vertices, T_edges>::weaklyConnected()
 }
 
 template <class T_vertices, class T_edges>
-std::vector<unsigned> MatrixGraph<T_vertices, T_edges>::getRouteVertices(unsigned from, unsigned to)
+std::vector<unsigned> MatrixGraph<T_vertices, T_edges>::getRouteVertices(unsigned from, unsigned to) const
 {
     assert(from!=to);
     std::vector<unsigned> route;
@@ -387,7 +387,7 @@ std::vector<unsigned> MatrixGraph<T_vertices, T_edges>::getRouteVertices(unsigne
 }
 
 template <class T_vertices, class T_edges>
-unsigned MatrixGraph<T_vertices, T_edges>::getRouteLength(unsigned from, unsigned to)
+unsigned MatrixGraph<T_vertices, T_edges>::getRouteLength(unsigned from, unsigned to) const
 {
     unsigned length = (this->getRouteVertices(from,to)).size();
     if(length==0) return 0;
@@ -431,7 +431,7 @@ MatrixGraph<T_vertices, T_edges>& MatrixGraph<T_vertices, T_edges>::operator=(Li
 //functions related to class ListGraph
 
 template <class T_vertices, class T_edges>
-bool ListGraph<T_vertices, T_edges>::DFS(unsigned start, const std::vector<std::vector<unsigned>> &list)
+bool ListGraph<T_vertices, T_edges>::DFS(unsigned start, const std::vector<std::vector<unsigned>> &list) const
 {
     auto visited = new bool[verticesN]{false};
     std::stack<unsigned> stack;
@@ -464,7 +464,7 @@ bool ListGraph<T_vertices, T_edges>::DFS(unsigned start, const std::vector<std::
 }
 
 template <class T_vertices, class T_edges>
-std::vector<unsigned*> ListGraph<T_vertices, T_edges>::BFS(unsigned start, unsigned end)
+std::vector<unsigned*> ListGraph<T_vertices, T_edges>::BFS(unsigned start, unsigned end) const
 {
     std::vector<unsigned*> prev{verticesN,nullptr};
     auto visited = new bool[verticesN]{false};
@@ -500,7 +500,7 @@ ListGraph<T_vertices, T_edges>::ListGraph()
 }
 
 template <class T_vertices, class T_edges>
-ListGraph<T_vertices, T_edges>::ListGraph(MatrixGraph<T_vertices, T_edges> &toCopy)
+ListGraph<T_vertices, T_edges>::ListGraph(const MatrixGraph<T_vertices, T_edges> &toCopy)
 {
     verticesN = 0;
     *this = toCopy;
@@ -513,7 +513,7 @@ ListGraph<T_vertices, T_edges>::~ListGraph()
 }
 
 template <class T_vertices, class T_edges>
-void ListGraph<T_vertices, T_edges>::addVertex(T_vertices data)
+void ListGraph<T_vertices, T_edges>::addVertex(const T_vertices &data)
 {
     vertices.push_back(data);
     edges.push_back({});
@@ -555,10 +555,10 @@ void ListGraph<T_vertices, T_edges>::delVertex(unsigned vertex)
 }
 
 template <class T_vertices, class T_edges>
-void ListGraph<T_vertices, T_edges>::addEdge(unsigned from, unsigned to, T_edges data)
+void ListGraph<T_vertices, T_edges>::addEdge(unsigned from, unsigned to, const T_edges &data)
 {
     assert(from<verticesN && to<verticesN);
-    assert(!this->checkEdge(from, to));
+    assert(!this->isEdgeExists(from, to));
     edges[from].push_back({to, new T_edges(data)});
 }
 
@@ -589,7 +589,7 @@ void ListGraph<T_vertices, T_edges>::clear()
 }
 
 template <class T_vertices, class T_edges>
-bool ListGraph<T_vertices, T_edges>::checkEdge(unsigned from, unsigned to)
+bool ListGraph<T_vertices, T_edges>::isEdgeExists(unsigned from, unsigned to) const
 {
     assert(from<verticesN && to<verticesN);
     unsigned currLen = edges[from].size();
@@ -601,13 +601,13 @@ bool ListGraph<T_vertices, T_edges>::checkEdge(unsigned from, unsigned to)
 }
 
 template <class T_vertices, class T_edges>
-unsigned ListGraph<T_vertices, T_edges>::size()
+unsigned ListGraph<T_vertices, T_edges>::size() const
 {
     return verticesN;
 }
 
 template <class T_vertices, class T_edges>
-std::vector<std::vector<unsigned>> ListGraph<T_vertices, T_edges>::getEdges()
+std::vector<std::vector<unsigned>> ListGraph<T_vertices, T_edges>::getEdges() const
 {
     std::vector<std::vector<unsigned>> res;
     unsigned currLen;
@@ -623,7 +623,7 @@ std::vector<std::vector<unsigned>> ListGraph<T_vertices, T_edges>::getEdges()
 }
 
 template <class T_vertices, class T_edges>
-std::vector<std::vector<unsigned>> ListGraph<T_vertices, T_edges>::getList()
+std::vector<std::vector<unsigned>> ListGraph<T_vertices, T_edges>::getList() const
 {
     std::vector<std::vector<unsigned>> res;
     unsigned currLen;
@@ -640,7 +640,7 @@ std::vector<std::vector<unsigned>> ListGraph<T_vertices, T_edges>::getList()
 }
 
 template <class T_vertices, class T_edges>
-std::string ListGraph<T_vertices, T_edges>::getString()
+std::string ListGraph<T_vertices, T_edges>::getString() const
 {
     std::string res;
     unsigned currLen;
@@ -659,7 +659,7 @@ std::string ListGraph<T_vertices, T_edges>::getString()
 
 template <class T_vertices, class T_edges>
 void ListGraph<T_vertices, T_edges>::randomGraph(unsigned minVertices, unsigned maxVertices,
-                                                 double edgeProb, T_vertices verticesData, T_edges edgesData)
+                                                 double edgeProb, const T_vertices &verticesData, const T_edges &edgesData)
 {
     assert(minVertices<=maxVertices);
     assert(edgeProb>=0 && edgeProb<=1);
@@ -686,7 +686,7 @@ void ListGraph<T_vertices, T_edges>::randomGraph(unsigned minVertices, unsigned 
 }
 
 template <class T_vertices, class T_edges>
-bool ListGraph<T_vertices, T_edges>::stronglyConnected()
+bool ListGraph<T_vertices, T_edges>::stronglyConnected() const
 {
     assert(verticesN>0);
     auto list = this->getList();
@@ -706,7 +706,7 @@ bool ListGraph<T_vertices, T_edges>::stronglyConnected()
 }
 
 template <class T_vertices, class T_edges>
-bool ListGraph<T_vertices, T_edges>::weaklyConnected()
+bool ListGraph<T_vertices, T_edges>::weaklyConnected() const
 {
     assert(verticesN>0);
     auto list = this->getList();
@@ -716,7 +716,7 @@ bool ListGraph<T_vertices, T_edges>::weaklyConnected()
         currLen = list[i].size();
         for(unsigned j=0; j<currLen; j++)
         {
-            if(!this->checkEdge(list[i][j],i))
+            if(!this->isEdgeExists(list[i][j],i))
             {
                 list[list[i][j]].push_back(i);
             }
@@ -727,7 +727,7 @@ bool ListGraph<T_vertices, T_edges>::weaklyConnected()
 }
 
 template <class T_vertices, class T_edges>
-std::vector<unsigned> ListGraph<T_vertices, T_edges>::getRouteVertices(unsigned from, unsigned to)
+std::vector<unsigned> ListGraph<T_vertices, T_edges>::getRouteVertices(unsigned from, unsigned to) const
 {
     assert(from!=to);
     std::vector<unsigned> route;
@@ -750,7 +750,7 @@ std::vector<unsigned> ListGraph<T_vertices, T_edges>::getRouteVertices(unsigned 
 }
 
 template <class T_vertices, class T_edges>
-unsigned ListGraph<T_vertices, T_edges>::getRouteLength(unsigned from, unsigned to)
+unsigned ListGraph<T_vertices, T_edges>::getRouteLength(unsigned from, unsigned to) const
 {
     unsigned length = (this->getRouteVertices(from,to)).size();
     if(length==0) return 0;

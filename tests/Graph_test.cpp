@@ -31,7 +31,7 @@ TEST(Graph, TestRandomGraph)
         {
             ASSERT_EQ(matrixGraph.size(), listGraph.size());
 
-            ASSERT_EQ(matrixGraph.checkEdge(0, matrixGraph.size()-1), listGraph.checkEdge(0, matrixGraph.size()-1));
+            ASSERT_EQ(matrixGraph.isEdgeExists(0, matrixGraph.size()-1), listGraph.isEdgeExists(0, matrixGraph.size()-1));
             ASSERT_EQ(matrixGraph.getRouteVertices(0, matrixGraph.size()-1), listGraph.getRouteVertices(0, listGraph.size()-1));
 
             ASSERT_EQ(matrixGraph.weaklyConnected(), listGraph.weaklyConnected());

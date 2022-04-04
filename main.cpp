@@ -34,7 +34,7 @@ bool TestRandomGraph(unsigned iter)
                 std::cout<<"FAILED [size]\n";
                 return false;
             }
-            if(matrixGraph.checkEdge(0, matrixGraph.size()-1) != listGraph.checkEdge(0, matrixGraph.size()-1))
+            if(matrixGraph.isEdgeExists(0, matrixGraph.size()-1) != listGraph.isEdgeExists(0, matrixGraph.size()-1))
             {
                 std::cout<<"FAILED [checkEdge]\n";
                 return false;

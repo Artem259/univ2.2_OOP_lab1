@@ -13,6 +13,8 @@ std::random_device rd;
 std::mt19937 mt(rd());
 
 template <class T_vertices, class T_edges>
+class IGraph;
+template <class T_vertices, class T_edges>
 class MatrixGraph;
 template <class T_vertices, class T_edges>
 class ListGraph;

@@ -20,7 +20,30 @@ class ListGraph;
 //---------------------------------------------------------------------------------------------------------------//
 
 template <class T_vertices, class T_edges>
-class MatrixGraph
+class IGraph
+{
+    virtual void addVertex(const T_vertices &data) = 0; //add a new vertex
+    virtual void delVertex(unsigned vertex) = 0; //delete a vertex
+    virtual void addEdge(unsigned from, unsigned to, const T_edges &data) = 0; //add a new edge
+    virtual void delEdge(unsigned from, unsigned to) = 0; //delete an edge
+    virtual void clear() = 0; //cleans the graph
+    virtual bool isEdgeExists(unsigned from, unsigned to) const = 0; //checks if there's an edge in the graph
+    virtual unsigned size() const = 0; //returns the number of vertices in the graph
+    virtual std::vector<std::vector<unsigned>> getEdges() const = 0; //return all edges in graph
+    virtual std::string getString() const = 0; //return a string representation of adjacency matrix
+    virtual void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, const T_vertices &verticesData, const T_edges &edgesData) = 0;
+    //fill graph with random number of vertices and random edges
+    virtual bool stronglyConnected() const = 0; //checks if the graph is strongly connected
+    virtual bool weaklyConnected() const = 0; //checks if the graph is weakly connected
+    virtual std::vector<unsigned> getRouteVertices(unsigned from, unsigned to) const = 0; //returns vertices chain between 2 vertices [from-->to]
+    virtual unsigned getRouteLength(unsigned from, unsigned to) const = 0; //returns number of edges between 2 vertices (or 0, if disconnected)
+
+    virtual T_vertices& operator()(unsigned vertex) = 0; //get a reference to vertex
+    virtual T_edges& operator()(unsigned from, unsigned to) = 0; //get a reference to edge
+};
+
+template <class T_vertices, class T_edges>
+class MatrixGraph : IGraph<T_vertices, T_edges>
 {
 private:
     unsigned verticesN;
@@ -36,29 +59,29 @@ public:
     explicit MatrixGraph(const ListGraph<T_vertices, T_edges> &toCopy); //copy constructor from ListGraph
     ~MatrixGraph(); //destructor
     void addVertex(const T_vertices &data); //add a new vertex
-    void delVertex(unsigned vertex); //delete a vertex
+    void delVertex(unsigned vertex) override; //delete a vertex
     void addEdge(unsigned from, unsigned to, const T_edges &data); //add a new edge
-    void delEdge(unsigned from, unsigned to); //delete an edge
-    void clear(); //cleans the graph
-    bool isEdgeExists(unsigned from, unsigned to) const; //checks if there's an edge in the graph
-    unsigned size() const; //returns the number of vertices in the graph
-    std::vector<std::vector<unsigned>> getEdges() const; //return all edges in graph
-    std::string getString() const; //return a string representation of adjacency matrix
-    void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, const T_vertices &verticesData, const T_edges &edgesData);
+    void delEdge(unsigned from, unsigned to) override; //delete an edge
+    void clear() override; //cleans the graph
+    bool isEdgeExists(unsigned from, unsigned to) const override; //checks if there's an edge in the graph
+    unsigned size() const override; //returns the number of vertices in the graph
+    std::vector<std::vector<unsigned>> getEdges() const override; //return all edges in graph
+    std::string getString() const override; //return a string representation of adjacency matrix
+    void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, const T_vertices &verticesData, const T_edges &edgesData) override;
     //fill graph with random number of vertices and random edges
-    bool stronglyConnected() const; //checks if the graph is strongly connected
-    bool weaklyConnected() const; //checks if the graph is weakly connected
-    std::vector<unsigned> getRouteVertices(unsigned from, unsigned to) const; //returns vertices chain between 2 vertices [from-->to]
-    unsigned getRouteLength(unsigned from, unsigned to) const; //returns number of edges between 2 vertices (or 0, if disconnected)
+    bool stronglyConnected() const override; //checks if the graph is strongly connected
+    bool weaklyConnected() const override; //checks if the graph is weakly connected
+    std::vector<unsigned> getRouteVertices(unsigned from, unsigned to) const override; //returns vertices chain between 2 vertices [from-->to]
+    unsigned getRouteLength(unsigned from, unsigned to) const override; //returns number of edges between 2 vertices (or 0, if disconnected)
 
-    T_vertices& operator()(unsigned vertex); //get a reference to vertex
-    T_edges& operator()(unsigned from, unsigned to); //get a reference to edge
+    T_vertices& operator()(unsigned vertex) override; //get a reference to vertex
+    T_edges& operator()(unsigned from, unsigned to) override; //get a reference to edge
     //MatrixGraph<T_vertices, T_edges>& operator=(const MatrixGraph<T_vertices, T_edges> &toCopy); //copy MatrixGraph
     MatrixGraph<T_vertices, T_edges>& operator=(ListGraph<T_vertices, T_edges> &toCopy); //copy ListGraph
 };
 
 template <class T_vertices, class T_edges>
-class ListGraph
+class ListGraph : IGraph<T_vertices, T_edges>
 {
 private:
     struct edge
@@ -79,23 +102,23 @@ public:
     explicit ListGraph(const MatrixGraph<T_vertices, T_edges> &toCopy); //copy constructor from MatrixGraph
     ~ListGraph(); //destructor
     void addVertex(const T_vertices &data); //add a new vertex
-    void delVertex(unsigned vertex); //delete a vertex
+    void delVertex(unsigned vertex) override; //delete a vertex
     void addEdge(unsigned from, unsigned to, const T_edges &data); //add a new edge
-    void delEdge(unsigned from, unsigned to); //delete an edge
-    void clear(); //cleans the graph
-    bool isEdgeExists(unsigned from, unsigned to) const; //checks if there's an edge in the graph
-    unsigned size() const; //returns the number of vertices in the graph
-    std::vector<std::vector<unsigned>> getEdges() const; //return all edges in graph
-    std::string getString() const; //return a string representation of adjacency list
-    void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, const T_vertices &verticesData, const T_edges &edgesData);
+    void delEdge(unsigned from, unsigned to) override; //delete an edge
+    void clear() override; //cleans the graph
+    bool isEdgeExists(unsigned from, unsigned to) const override; //checks if there's an edge in the graph
+    unsigned size() const override; //returns the number of vertices in the graph
+    std::vector<std::vector<unsigned>> getEdges() const override; //return all edges in graph
+    std::string getString() const override; //return a string representation of adjacency list
+    void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, const T_vertices &verticesData, const T_edges &edgesData) override;
     //fill graph with random number of vertices and random edges
-    bool stronglyConnected() const; //checks if the graph is strongly connected
-    bool weaklyConnected() const; //checks if the graph is weakly connected
-    std::vector<unsigned> getRouteVertices(unsigned from, unsigned to) const; //returns vertices chain between 2 vertices [from-->to]
-    unsigned getRouteLength(unsigned from, unsigned to) const; //returns number of edges between 2 vertices (or 0, if disconnected)
+    bool stronglyConnected() const override; //checks if the graph is strongly connected
+    bool weaklyConnected() const override; //checks if the graph is weakly connected
+    std::vector<unsigned> getRouteVertices(unsigned from, unsigned to) const override; //returns vertices chain between 2 vertices [from-->to]
+    unsigned getRouteLength(unsigned from, unsigned to) const override; //returns number of edges between 2 vertices (or 0, if disconnected)
 
-    T_vertices& operator()(unsigned vertex); //get a reference to vertex
-    T_edges& operator()(unsigned from, unsigned to); //get a reference to edge
+    T_vertices& operator()(unsigned vertex) override; //get a reference to vertex
+    T_edges& operator()(unsigned from, unsigned to) override; //get a reference to edge
     //ListGraph<T_vertices, T_edges>& operator=(const ListGraph<T_vertices, T_edges> &toCopy); //copy ListGraph
     ListGraph<T_vertices, T_edges>& operator=(MatrixGraph<T_vertices, T_edges> &toCopy); //copy MatrixGraph
 };

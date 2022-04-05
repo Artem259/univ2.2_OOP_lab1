@@ -44,7 +44,9 @@ protected:
     virtual bool weaklyConnected() const = 0; //checks if the graph is weakly connected
     virtual std::vector<unsigned> getRouteVertices(unsigned from, unsigned to) const = 0; //returns vertices chain between 2 vertices [from-->to]
     virtual T_vertices& operator()(unsigned vertex) = 0; //get a reference to vertex
+    virtual const T_vertices& operator()(unsigned vertex) const = 0; //get a const reference to vertex
     virtual T_edges& operator()(unsigned from, unsigned to) = 0; //get a reference to edge
+    virtual const T_edges& operator()(unsigned from, unsigned to) const = 0; //get a const reference to edge
 };
 
 template <class T_vertices, class T_edges>
@@ -78,7 +80,9 @@ public:
     MatrixGraph<T_vertices, T_edges>& operator=(const MatrixGraph<T_vertices, T_edges> &toCopy); //MatrixGraph = MatrixGraph
     MatrixGraph<T_vertices, T_edges>& operator=(const ListGraph<T_vertices, T_edges> &toCopy); //MatrixGraph = ListGraph
     T_vertices& operator()(unsigned vertex) override; //get a reference to vertex
+    const T_vertices& operator()(unsigned vertex) const override; //get a const reference to vertex
     T_edges& operator()(unsigned from, unsigned to) override; //get a reference to edge
+    const T_edges& operator()(unsigned from, unsigned to) const override; //get a const reference to edge
 };
 
 template <class T_vertices, class T_edges>
@@ -117,7 +121,9 @@ public:
     ListGraph<T_vertices, T_edges>& operator=(const ListGraph<T_vertices, T_edges> &toCopy); //ListGraph = ListGraph
     ListGraph<T_vertices, T_edges>& operator=(const MatrixGraph<T_vertices, T_edges> &toCopy); //ListGraph = MatrixGraph
     T_vertices& operator()(unsigned vertex) override; //get a reference to vertex
+    const T_vertices& operator()(unsigned vertex) const override; //get a const reference to vertex
     T_edges& operator()(unsigned from, unsigned to) override; //get a reference to edge
+    const T_edges& operator()(unsigned from, unsigned to) const override; //get a const reference to edge
 };
 
 //---------------------------------------------------------------------------------------------------------------//
@@ -453,7 +459,22 @@ T_vertices& MatrixGraph<T_vertices, T_edges>::operator()(unsigned vertex)
 }
 
 template <class T_vertices, class T_edges>
+const T_vertices& MatrixGraph<T_vertices, T_edges>::operator()(unsigned vertex) const
+{
+    assert(vertex<verticesN);
+    return vertices[vertex];
+}
+
+template <class T_vertices, class T_edges>
 T_edges& MatrixGraph<T_vertices, T_edges>::operator()(unsigned from, unsigned to)
+{
+    assert(from<verticesN && to<verticesN);
+    assert(edges[from][to]);
+    return *edges[from][to];
+}
+
+template <class T_vertices, class T_edges>
+const T_edges& MatrixGraph<T_vertices, T_edges>::operator()(unsigned from, unsigned to) const
 {
     assert(from<verticesN && to<verticesN);
     assert(edges[from][to]);
@@ -766,7 +787,28 @@ T_vertices& ListGraph<T_vertices, T_edges>::operator()(unsigned vertex)
 }
 
 template <class T_vertices, class T_edges>
+const T_vertices& ListGraph<T_vertices, T_edges>::operator()(unsigned vertex) const
+{
+    assert(vertex<verticesN);
+    return vertices[vertex];
+}
+
+template <class T_vertices, class T_edges>
 T_edges& ListGraph<T_vertices, T_edges>::operator()(unsigned from, unsigned to)
+{
+    assert(from<verticesN && to<verticesN);
+    unsigned currLen = edges[from].size();
+    for(unsigned i=0; i<currLen; i++)
+    {
+        if(edges[from][i].vertex==to) return *edges[from][i].data;
+    }
+    assert(false);
+    return *edges[0][0].data; //can't be reached
+}
+
+
+template <class T_vertices, class T_edges>
+const T_edges& ListGraph<T_vertices, T_edges>::operator()(unsigned from, unsigned to) const
 {
     assert(from<verticesN && to<verticesN);
     unsigned currLen = edges[from].size();

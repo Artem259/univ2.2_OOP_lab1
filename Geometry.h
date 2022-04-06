@@ -3,6 +3,7 @@
 
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include <utility>
 #include <vector>
 #include <cassert>
 #include <string>
@@ -50,9 +51,9 @@ class Line : public Geometry
 private:
     double a,b,c; //format: ax+by+c=0, b!=0
 public:
-    Line(); //y-x=0
+    Line() : a(-1), b(1), c(0) {}; //y-x=0
+    Line(double a, double b, double c) : a(a), b(b), c(c) {};
     Line(const Line &line);
-    Line(double _a, double _b, double _c);
     Line(double _k, double _b); //y=kx+b => -kx+y-b=0
     Line(const Point &first, const Point &second);
     void set(double _a, double _b, double _c);
@@ -90,10 +91,10 @@ private:
 
     Line getTangent(const Point &point) const;
 public:
-    Circle(); //(x2)+(y2)=1
+    Circle() : center(0,0), radius(1) {}; //(x2)+(y2)=1
+    Circle(Point center, double radius) : center(std::move(center)), radius(radius) {};
+    explicit Circle(double radius) : center(0,0), radius(radius) {};
     Circle(const Circle &circle);
-    Circle(Point _center, double _radius);
-    explicit Circle(double _radius);
     void setCenter(Point _center);
     void setRadius(double _radius);
     Point getCenter() const;
@@ -191,24 +192,11 @@ Point operator -(const Point &first, const Point &second)
 //---------------------------------------------------------------------------------------------------------------//
 // functions related to class Line
 
-Line::Line()
-{
-    a = -1;
-    b = 1;
-    c = 0;
-}
 Line::Line(const Line &line)
 {
     a = line.a;
     b = line.b;
     c = line.c;
-}
-Line::Line(double _a, double _b, double _c)
-{
-    assert(_b!=0);
-    a = _a;
-    b = _b;
-    c = _c;
 }
 Line::Line(double _k, double _b)
 {
@@ -223,7 +211,6 @@ Line::Line(const Point &first, const Point &second)
     b = first.x-second.x;
     c = first.y*second.x-first.x*second.y;
 }
-
 void Line::set(double _a, double _b, double _c)
 {
     assert(_b!=0);
@@ -347,27 +334,10 @@ Point operator &&(const Line &first, const Line &second)
 //---------------------------------------------------------------------------------------------------------------//
 // functions related to class Circle
 
-Circle::Circle()
-{
-    center = {0,0};
-    radius = 1;
-}
 Circle::Circle(const Circle &circle)
 {
     center = circle.center;
     radius = circle.radius;
-}
-Circle::Circle(Point _center, double _radius)
-{
-    assert(_radius!=0);
-    center = _center;
-    radius = _radius;
-}
-Circle::Circle(double _radius)
-{
-    assert(_radius!=0);
-    center = {0,0};
-    radius = _radius;
 }
 
 void Circle::setCenter(Point _center)

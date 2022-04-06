@@ -7,16 +7,27 @@
 #include <cassert>
 #include <string>
 
+class Geometry;
 struct Point;
 class Line;
 class Circle;
 
 //---------------------------------------------------------------------------------------------------------------//
 
-struct Point
+class Geometry
 {
+public:
+    virtual ~Geometry() = 0;
+};
+
+class Point : public Geometry
+{
+public:
     double x = 0;
     double y = 0;
+
+    Point(double x, double y) : x(x), y(y) {};
+    Point() : x(0), y(0) {};
 
     Point getSymmetric(const Line &line) const;
     Point getInversion(const Circle &circle) const;
@@ -34,7 +45,7 @@ struct Point
     friend Point operator -(const Point &first, const Point &second);
 };
 
-class Line
+class Line : public Geometry
 {
 private:
     double a,b,c; //format: ax+by+c=0, b!=0
@@ -71,7 +82,7 @@ public:
     friend std::vector<Point> operator &&(const Circle &first, const Circle &second);
 };
 
-class Circle
+class Circle : public Geometry
 {
 private:
     Point center{};
@@ -102,6 +113,11 @@ public:
     friend std::vector<Point> operator &&(const Line &line, const Circle &circle);
     friend std::vector<Point> operator &&(const Circle &circle, const Line &line);
 };
+
+//---------------------------------------------------------------------------------------------------------------//
+// functions related to struct Geometry
+
+Geometry::~Geometry() = default;
 
 //---------------------------------------------------------------------------------------------------------------//
 // functions related to struct Point

@@ -25,13 +25,13 @@ template <class T_vertices, class T_edges>
 class Graph
 {
 public:
+    virtual ~Graph() = 0;
     void clear(); //cleans the graph
     void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, const T_vertices &verticesData, const T_edges &edgesData);
         //fill graph with random number of vertices and random edges
     unsigned getRouteLength(unsigned from, unsigned to) const; //returns number of edges between 2 vertices (or 0, if disconnected)
     Graph<T_vertices, T_edges>& operator=(const Graph<T_vertices, T_edges> &toCopy); //copy
 protected:
-    virtual ~Graph() = default;
     virtual void addVertex(const T_vertices &data) = 0; //add a new vertex
     virtual void delVertex(unsigned vertex) = 0; //delete a vertex
     virtual void addEdge(unsigned from, unsigned to, const T_edges &data) = 0; //add a new edge
@@ -128,6 +128,9 @@ public:
 
 //---------------------------------------------------------------------------------------------------------------//
 // functions related to class IGraph
+
+template <class T_vertices, class T_edges>
+Graph<T_vertices, T_edges>::~Graph() = default;
 
 template <class T_vertices, class T_edges>
 void Graph<T_vertices, T_edges>::clear()

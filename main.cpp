@@ -515,11 +515,11 @@ bool InversionLine()
 {
     std::vector<Line> l;
     std::vector<Circle> c;
-    std::vector<Circle> res;
+    std::vector<std::shared_ptr<Geometry>> res;
 
     //some tests (???)
 
-    Circle currRes;
+    std::shared_ptr<Geometry> currRes;
     size_t len = res.size();
     for(size_t i=0; i<len; i++)
     {
@@ -539,11 +539,11 @@ bool InversionCircle()
 {
     std::vector<Circle> c1;
     std::vector<Circle> c2;
-    std::vector<Circle> res;
+    std::vector<std::shared_ptr<Geometry>> res;
 
     //some tests (???)
 
-    Circle currRes;
+    std::shared_ptr<Geometry> currRes;
     size_t len = res.size();
     for(size_t i=0; i<len; i++)
     {

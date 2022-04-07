@@ -127,7 +127,7 @@ public:
 };
 
 //---------------------------------------------------------------------------------------------------------------//
-// functions related to class IGraph
+// functions related to class Graph
 
 template <class T_vertices, class T_edges>
 Graph<T_vertices, T_edges>::~Graph() = default;

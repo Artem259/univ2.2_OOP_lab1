@@ -7,6 +7,7 @@
 #include <vector>
 #include <cassert>
 #include <string>
+#include <memory>
 
 class Geometry;
 struct Point;
@@ -67,7 +68,7 @@ public:
     double getC() const;
 
     Line getSymmetric(const Line &line) const;
-    Circle getInversion(const Circle &circle) const;
+    std::shared_ptr<Geometry> getInversion(const Circle &circle) const;
     Point getProjection(const Point &point) const;
     std::string getString() const;
     friend std::ostream& operator <<(std::ostream &ofs, const Line &line);
@@ -101,7 +102,8 @@ public:
     double getRadius() const;
 
     Circle getSymmetric(const Line &line) const;
-    Circle getInversion(const Circle &circle) const;
+    std::shared_ptr<Geometry> getInversion(const Circle &circle) const;
+    Point getProjection(const Point &point) const;
     std::string getString() const;
     friend std::ostream& operator <<(std::ostream &ofs, const Circle &circle);
     friend bool operator ==(const Circle &first, const Circle &second);
@@ -266,14 +268,22 @@ Line Line::getSymmetric(const Line &line) const
     Point second = {x2, -(a/b)*x2-c/b};
     return {first.getSymmetric(line), second.getSymmetric(line)};
 }
-Circle Line::getInversion(const Circle &circle) const
+std::shared_ptr<Geometry> Line::getInversion(const Circle &circle) const
 {
-    Circle res;
-    Point point = this->getProjection(circle.getCenter());
-    point = point.getInversion(circle);
-    res.setRadius(getDistance(point, circle.getCenter())/2);
-    res.setCenter({(point.x+circle.getCenter().x)/2, (point.y+circle.getCenter().y)/2});
-    return res;
+    if(this->getProjection(circle.getCenter()) == circle.getCenter())
+    {
+        Line res = *this;
+        return std::shared_ptr<Geometry>(new Line{res});
+    }
+    else
+    {
+        Circle res;
+        Point point = this->getProjection(circle.getCenter());
+        point = point.getInversion(circle);
+        res.setRadius(getDistance(point, circle.getCenter())/2);
+        res.setCenter({(point.x+circle.getCenter().x)/2, (point.y+circle.getCenter().y)/2});
+        return std::shared_ptr<Geometry>(new Circle{res});
+    }
 }
 Point Line::getProjection(const Point &point) const
 {
@@ -362,16 +372,34 @@ Circle Circle::getSymmetric(const Line &line) const
 {
     return {center.getSymmetric(line), radius};
 }
-Circle Circle::getInversion(const Circle &circle) const
+std::shared_ptr<Geometry> Circle::getInversion(const Circle &circle) const
 {
-    Circle res;
-    double r = circle.radius;
-    double x = circle.getCenter().x;
-    double y = circle.getCenter().y;
-    double s = (r*r)/((center.x-x)*(center.x-x)+(center.y-y)*(center.y-y)-radius*radius);
-    res.setRadius(radius*abs(s));
-    res.setCenter({x+s*(center.x-x), y+s*(center.y-y)});
-    return res;
+    if(this->getProjection(circle.getCenter()) == circle.getCenter())
+    {
+        Line res;
+        Line line{center, center+Point{1,1}};
+        std::vector<Point> points = *this && line;
+        res = Line{points[0].getInversion(circle), points[1].getInversion(circle)};
+        return std::shared_ptr<Geometry>(new Line{res});
+    }
+    else
+    {
+        Circle res;
+        double r = circle.radius;
+        double x = circle.getCenter().x;
+        double y = circle.getCenter().y;
+        double s = (r*r)/((center.x-x)*(center.x-x)+(center.y-y)*(center.y-y)-radius*radius);
+        res.setRadius(radius*abs(s));
+        res.setCenter({x+s*(center.x-x), y+s*(center.y-y)});
+        return std::shared_ptr<Geometry>(new Circle{res});
+    }
+}
+Point Circle::getProjection(const Point &point) const
+{
+    Line line{center, point};
+    std::vector<Point> candidates = *this && line;
+    if(getDistance(candidates[0], point) < getDistance(center, point)) return candidates[0];
+    return candidates[1];
 }
 std::string Circle::getString() const
 {
@@ -461,9 +489,9 @@ std::vector<Point> operator &&(const Line &line, const Circle &circle)
     double X2 = (-B-sqrtD)/(2*A);
     double Y1 = -(a/b)*X1-(c/b);
     double Y2 = -(a/b)*X2-(c/b);
-    res.push_back({X1,Y1});
+    res.emplace_back(X1,Y1);
     if(D==0) return res;
-    res.push_back({X2,Y2});
+    res.emplace_back(X2,Y2);
     return res;
 }
 std::vector<Point> operator &&(const Circle &circle, const Line &line)

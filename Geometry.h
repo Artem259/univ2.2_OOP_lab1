@@ -374,6 +374,7 @@ Circle Circle::getSymmetric(const Line &line) const
 }
 std::shared_ptr<Geometry> Circle::getInversion(const Circle &circle) const
 {
+    if(*this == circle) return std::shared_ptr<Geometry>(new Circle{*this});
     if(this->getProjection(circle.getCenter()) == circle.getCenter())
     {
         Line res;

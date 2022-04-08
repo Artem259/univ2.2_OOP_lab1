@@ -71,6 +71,8 @@ public:
     std::shared_ptr<Geometry> getInversion(const Circle &circle) const;
     Point getProjection(const Point &point) const;
     std::string getString() const;
+    Line round(const unsigned &n) const;
+
     friend std::ostream& operator <<(std::ostream &ofs, const Line &line);
     friend bool operator ==(const Line &first, const Line &second);
     friend bool operator !=(const Line &first, const Line &second);
@@ -105,6 +107,8 @@ public:
     std::shared_ptr<Geometry> getInversion(const Circle &circle) const;
     Point getProjection(const Point &point) const;
     std::string getString() const;
+    Circle round(const unsigned &n) const;
+
     friend std::ostream& operator <<(std::ostream &ofs, const Circle &circle);
     friend bool operator ==(const Circle &first, const Circle &second);
     friend bool operator !=(const Circle &first, const Circle &second);
@@ -297,6 +301,16 @@ std::string Line::getString() const
 {
     return "("+std::to_string(a)+")x+("+std::to_string(b)+")y+("+std::to_string(c)+")=0";
 }
+Line Line::round(const unsigned &n) const
+{
+    Line res;
+    auto power = static_cast<unsigned>(pow(10,n));
+    res.a = std::round(a*power)/power;
+    res.b = std::round(b*power)/power;
+    res.c = std::round(c*power)/power;
+    return res;
+}
+
 std::ostream& operator <<(std::ostream &ofs, const Line &line)
 {
     ofs << line.getString();
@@ -406,6 +420,15 @@ std::string Circle::getString() const
 {
     return "(x-("+std::to_string(center.x)+"))^2 + (y-("+std::to_string(center.y)+"))^2 = ("+std::to_string(radius)+")^2";
 }
+Circle Circle::round(const unsigned &n) const
+{
+    Circle res;
+    auto power = static_cast<unsigned>(pow(10,n));
+    res.center = center.round(n);
+    res.radius = std::round(radius*power)/power;
+    return res;
+}
+
 std::ostream& operator <<(std::ostream &ofs, const Circle &circle)
 {
     ofs << circle.getString();

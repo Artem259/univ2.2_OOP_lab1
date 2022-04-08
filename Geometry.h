@@ -33,6 +33,8 @@ public:
 
     Point getSymmetric(const Line &line) const;
     Point getInversion(const Circle &circle) const;
+    bool isLiesOn(const Line &line) const;
+    bool isLiesOn(const Circle &circle) const;
     std::string getString() const;
     Point round(const unsigned &n) const;
 
@@ -141,6 +143,17 @@ Point Point::getInversion(const Circle &circle) const
     double resX = c.x+(r*r*(x-c.x))/((x-c.x)*(x-c.x)+(y-c.y)*(y-c.y));
     double resY = c.y+(r*r*(y-c.y))/((x-c.x)*(x-c.x)+(y-c.y)*(y-c.y));
     return {resX, resY};
+}
+bool Point::isLiesOn(const Line &line) const
+{
+    return (line.getA()*x+line.getB()*y+line.getC() == 0);
+}
+bool Point::isLiesOn(const Circle &circle) const
+{
+    double centerX = circle.getCenter().x;
+    double centerY = circle.getCenter().y;
+    double R = circle.getRadius();
+    return ((x-centerX)*(x-centerX)+(y-centerY)*(y-centerY) == R*R);
 }
 std::string Point::getString() const
 {
@@ -274,7 +287,7 @@ Line Line::getSymmetric(const Line &line) const
 }
 std::shared_ptr<Geometry> Line::getInversion(const Circle &circle) const
 {
-    if(this->getProjection(circle.getCenter()) == circle.getCenter())
+    if(circle.getCenter().isLiesOn(*this))
     {
         Line res = *this;
         return std::shared_ptr<Geometry>(new Line{res});
@@ -388,8 +401,7 @@ Circle Circle::getSymmetric(const Line &line) const
 }
 std::shared_ptr<Geometry> Circle::getInversion(const Circle &circle) const
 {
-    if(*this == circle) return std::shared_ptr<Geometry>(new Circle{*this});
-    if(this->getProjection(circle.getCenter()) == circle.getCenter())
+    if(circle.getCenter().isLiesOn(*this))
     {
         Line res;
         Line line{center, center+Point{1,1}};
@@ -411,6 +423,7 @@ std::shared_ptr<Geometry> Circle::getInversion(const Circle &circle) const
 }
 Point Circle::getProjection(const Point &point) const
 {
+    assert(center != point);
     Line line{center, point};
     std::vector<Point> candidates = *this && line;
     if(getDistance(candidates[0], point) < getDistance(center, point)) return candidates[0];

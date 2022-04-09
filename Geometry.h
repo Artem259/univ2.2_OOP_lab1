@@ -340,21 +340,7 @@ std::ostream& operator <<(std::ostream &ofs, const Line &line)
 }
 bool operator ==(const Line &first, const Line &second)
 {
-    bool aNull = false, cNull = false;
-    if(isEqual(second.a,0))
-    {
-        if(!isEqual(first.a,0)) return false;
-        aNull = true;
-    }
-    if(isEqual(second.c,0))
-    {
-        if(!isEqual(first.c,0)) return false;
-        cNull = true;
-    }
-    if(aNull && cNull) return true;
-    if(aNull) return isEqual(first.b/second.b, first.c/second.c);
-    if(cNull) return (first.a/second.a == first.b/second.b);
-    return (isEqual(first.a/second.a,first.b/second.b) && isEqual(first.a/second.a,first.c/second.c));
+    return (getAngle(first,second) <= EPSILON);
 }
 bool operator !=(const Line &first, const Line &second)
 {

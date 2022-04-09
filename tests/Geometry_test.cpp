@@ -170,7 +170,13 @@ TEST(Geometry, AngleLineLine)
     double res;
 
     res = getAngle(Line{2,3,-5}, Line{2,3,4});
-    EXPECT_EQ(roundDouble(res), roundDouble(double(-1)));
+    EXPECT_EQ(roundDouble(res), roundDouble(double(0)));
+
+    res = getAngle(Line{2,3,-5}, Line{-6,-9,8});
+    EXPECT_EQ(roundDouble(res), roundDouble(double(0)));
+
+    res = getAngle(Line{2,3,-5}, Line{2,3,-5});
+    EXPECT_EQ(roundDouble(res), roundDouble(double(0)));
 
     res = getAngle(Line{0,0}, Line{1,-10});
     EXPECT_EQ(roundDouble(res), roundDouble(double(M_PI/4)));
@@ -259,4 +265,45 @@ TEST(Geometry, SymmetricCircle)
 
     res = Circle({{3,15},6.66}).getSymmetric(Line({5,-3,8}));
     EXPECT_EQ(res, Circle({{double(161)/17,double(189)/17},6.66}));
+}
+TEST(Geometry, InversionLine)
+{
+    std::shared_ptr<Geometry> res;
+
+    res = Line{0.54,0.08}.getInversion({{2,-5},4});
+    EXPECT_EQ(dynamic_cast<Circle&>(*res).round(3), Circle({{1.2987,-3.7013},sqrt(2.17844)}).round(3));
+
+    res = Line{-2.56,0.66116}.getInversion({{2,-5},4});
+    EXPECT_EQ(dynamic_cast<Circle&>(*res).round(3), Circle({{39.84451,9.78301},sqrt(1650.74459)}).round(3));
+
+    res = Line{0,-3}.getInversion({{2,-5},4});
+    EXPECT_EQ(dynamic_cast<Circle&>(*res).round(3), Circle({{2,-1},sqrt(16)}).round(3));
+
+    res = Line{-0.25,-4.5}.getInversion({{2,-5},4});
+    EXPECT_EQ(dynamic_cast<Line&>(*res).round(3), Line({-0.25,-4.5}).round(3));
+
+    res = Line{0,-5}.getInversion({{2,-5},4});
+    EXPECT_EQ(dynamic_cast<Line&>(*res).round(3), Line({0,-5}).round(3));
+}
+TEST(Geometry, InversionCircle)
+{
+    std::shared_ptr<Geometry> res;
+
+    res = Circle{{4.62563,-7.05884},sqrt(0.20522)}.getInversion({{2,-5},4});
+    EXPECT_EQ(dynamic_cast<Circle&>(*res).round(3), Circle({{5.84443,-8.01454},sqrt(0.43997)}).round(3));
+
+    res = Circle{{1.63727,-6.04978},sqrt(7.09914)}.getInversion({{2,-5},4});
+    EXPECT_EQ(dynamic_cast<Circle&>(*res).round(3), Circle({{2.98947,-2.13642},sqrt(52.82391)}).round(3));
+
+    res = Circle{{2,-5},sqrt(8)}.getInversion({{2,-5},4});
+    EXPECT_EQ(dynamic_cast<Circle&>(*res).round(3), Circle({{2,-5},sqrt(32)}).round(3));
+
+    res = Circle{{2,-5},sqrt(16)}.getInversion({{2,-5},4});
+    EXPECT_EQ(dynamic_cast<Circle&>(*res).round(3), Circle({{2,-5},sqrt(16)}).round(3));
+
+    res = Circle{{-1,-8},sqrt(18)}.getInversion({{2,-5},4});
+    EXPECT_EQ(dynamic_cast<Line&>(*res), Line({-0.7071067811865,-0.7071067811865,-4.006938426724}));
+
+    res = Circle{{8,4},sqrt(117)}.getInversion({{2,-5},4});
+    EXPECT_EQ(dynamic_cast<Line&>(*res), Line({0.5547001962252,0.8320502943378,2.311250817605}));
 }

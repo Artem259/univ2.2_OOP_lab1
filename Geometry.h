@@ -9,6 +9,8 @@
 #include <string>
 #include <memory>
 
+#define EPSILON 1e-12
+
 class Geometry;
 struct Point;
 class Line;
@@ -124,6 +126,13 @@ public:
 };
 
 //---------------------------------------------------------------------------------------------------------------//
+
+bool isEqual(double a, double b)
+{
+    return (std::abs(a-b) <= EPSILON);
+}
+
+//---------------------------------------------------------------------------------------------------------------//
 // functions related to struct Geometry
 
 Geometry::~Geometry() = default;
@@ -146,14 +155,14 @@ Point Point::getInversion(const Circle &circle) const
 }
 bool Point::isLiesOn(const Line &line) const
 {
-    return (line.getA()*x+line.getB()*y+line.getC() == 0);
+    return isEqual(line.getA()*x+line.getB()*y+line.getC(), 0);
 }
 bool Point::isLiesOn(const Circle &circle) const
 {
     double centerX = circle.getCenter().x;
     double centerY = circle.getCenter().y;
     double R = circle.getRadius();
-    return ((x-centerX)*(x-centerX)+(y-centerY)*(y-centerY) == R*R);
+    return isEqual((x-centerX)*(x-centerX)+(y-centerY)*(y-centerY), R*R);
 }
 std::string Point::getString() const
 {
@@ -182,7 +191,7 @@ std::ostream& operator <<(std::ostream &ofs, const Point &point)
 }
 bool operator ==(const Point &first, const Point &second)
 {
-    return (first.x==second.x && first.y==second.y);
+    return (isEqual(first.x, second.x) && isEqual(first.y, second.y));
 }
 bool operator !=(const Point &first, const Point &second)
 {
@@ -329,30 +338,23 @@ std::ostream& operator <<(std::ostream &ofs, const Line &line)
     ofs << line.getString();
     return ofs;
 }
-double getAngle(const Line &first, const Line &second)
-{
-    if(first.a==second.a && first.b==second.b) return -1;
-    double res = abs(atan(-(first.a/first.b))-atan(-(second.a/second.b)));
-    if(res>M_PI/2) return M_PI-res;
-    return res;
-}
 bool operator ==(const Line &first, const Line &second)
 {
     bool aNull = false, cNull = false;
-    if(second.a==0)
+    if(isEqual(second.a,0))
     {
-        if(first.a!=0) return false;
+        if(!isEqual(first.a,0)) return false;
         aNull = true;
     }
-    if(second.c==0)
+    if(isEqual(second.c,0))
     {
-        if(first.c!=0) return false;
+        if(!isEqual(first.c,0)) return false;
         cNull = true;
     }
     if(aNull && cNull) return true;
-    if(aNull) return (first.b/second.b == first.c/second.c);
+    if(aNull) return isEqual(first.b/second.b, first.c/second.c);
     if(cNull) return (first.a/second.a == first.b/second.b);
-    return (first.a/second.a==first.b/second.b && first.a/second.a==first.c/second.c);
+    return (isEqual(first.a/second.a,first.b/second.b) && isEqual(first.a/second.a,first.c/second.c));
 }
 bool operator !=(const Line &first, const Line &second)
 {
@@ -360,8 +362,8 @@ bool operator !=(const Line &first, const Line &second)
 }
 Point operator &&(const Line &first, const Line &second)
 {
-    assert(!(first.a==second.a && first.b==second.b));
-    assert(!(first.a==0 && second.a==0));
+    assert(!(isEqual(first.a,second.a) && isEqual(first.b,second.b)));
+    assert(!(isEqual(first.a,0) && isEqual(second.a,0)));
     Point res;
     res.x = (second.b*first.c-first.b*second.c)/(second.a*first.b-first.a*second.b);
     res.y = -(first.a/first.b)*res.x-(first.c/first.b);
@@ -404,7 +406,8 @@ std::shared_ptr<Geometry> Circle::getInversion(const Circle &circle) const
     if(circle.getCenter().isLiesOn(*this))
     {
         Line res;
-        Line line{center, center+Point{1,1}};
+        Line line{center, circle.center};
+        line = {center, center+Point{line.getA(), line.getB()}};
         std::vector<Point> points = *this && line;
         res = Line{points[0].getInversion(circle), points[1].getInversion(circle)};
         return std::shared_ptr<Geometry>(new Line{res});
@@ -458,7 +461,7 @@ Line Circle::getTangent(const Point &point) const
 
 bool operator ==(const Circle &first, const Circle &second)
 {
-    return (first.center==second.center && first.radius==second.radius);
+    return (first.center==second.center && isEqual(first.radius,second.radius));
 }
 bool operator !=(const Circle &first, const Circle &second)
 {
@@ -467,7 +470,7 @@ bool operator !=(const Circle &first, const Circle &second)
 std::vector<Point> operator &&(const Circle &first, const Circle &second)
 {
     assert(first!=second);
-    assert(!(first.center.y==second.center.y));
+    assert(!isEqual(first.center.y,second.center.y));
     Circle firstTmp = first;
     Circle secondTmp = second;
     Point offset = firstTmp.center;
@@ -492,6 +495,12 @@ std::vector<Point> operator &&(const Circle &first, const Circle &second)
 //---------------------------------------------------------------------------------------------------------------//
 // additional functions
 
+double getAngle(const Line &first, const Line &second)
+{
+    double res = abs(atan(-(first.a/first.b))-atan(-(second.a/second.b)));
+    if(res>M_PI/2) return M_PI-res;
+    return res;
+}
 double getAngle(const Line &line, const Circle &circle)
 {
     std::vector<Point> points = line && circle;
@@ -527,7 +536,7 @@ std::vector<Point> operator &&(const Line &line, const Circle &circle)
     double Y1 = -(a/b)*X1-(c/b);
     double Y2 = -(a/b)*X2-(c/b);
     res.emplace_back(X1,Y1);
-    if(D==0) return res;
+    if(isEqual(D,0)) return res;
     res.emplace_back(X2,Y2);
     return res;
 }

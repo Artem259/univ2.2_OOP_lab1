@@ -65,9 +65,9 @@ public:
     //MatrixGraph(MatrixGraph<T_vertices, T_edges> &toCopy); //copy constructor from MatrixGraph
     explicit MatrixGraph(const ListGraph<T_vertices, T_edges> &toCopy); //copy constructor from ListGraph
     ~MatrixGraph(); //destructor
-    void addVertex(const T_vertices &data); //add a new vertex
+    void addVertex(const T_vertices &data) override; //add a new vertex
     void delVertex(unsigned vertex) override; //delete a vertex
-    void addEdge(unsigned from, unsigned to, const T_edges &data); //add a new edge
+    void addEdge(unsigned from, unsigned to, const T_edges &data) override; //add a new edge
     void delEdge(unsigned from, unsigned to) override; //delete an edge
     bool isEdgeExists(unsigned from, unsigned to) const override; //checks if there's an edge in the graph
     unsigned size() const override; //returns the number of vertices in the graph
@@ -106,9 +106,9 @@ public:
     //ListGraph(ListGraph<T_vertices, T_edges> &toCopy); //copy constructor from ListGraph
     explicit ListGraph(const MatrixGraph<T_vertices, T_edges> &toCopy); //copy constructor from MatrixGraph
     ~ListGraph(); //destructor
-    void addVertex(const T_vertices &data); //add a new vertex
+    void addVertex(const T_vertices &data) override; //add a new vertex
     void delVertex(unsigned vertex) override; //delete a vertex
-    void addEdge(unsigned from, unsigned to, const T_edges &data); //add a new edge
+    void addEdge(unsigned from, unsigned to, const T_edges &data) override; //add a new edge
     void delEdge(unsigned from, unsigned to) override; //delete an edge
     bool isEdgeExists(unsigned from, unsigned to) const override; //checks if there's an edge in the graph
     unsigned size() const override; //returns the number of vertices in the graph

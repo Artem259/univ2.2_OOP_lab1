@@ -39,14 +39,15 @@ bool TestRandomGraph(unsigned iter)
                 std::cout<<"FAILED [checkEdge]\n";
                 return false;
             }
-            if(matrixGraph.getRouteLength(0, matrixGraph.size()-1) != listGraph.getRouteLength(0, listGraph.size()-1))
+            if(matrixGraph.getPathLength(0, matrixGraph.size() - 1) != listGraph.getPathLength(0, listGraph.size() - 1))
             {
-                std::cout<<"FAILED [getRouteLength]\n";
+                std::cout<<"FAILED [getPathLength]\n";
                 return false;
             }
-            if(matrixGraph.getRouteVertices(0, matrixGraph.size()-1) != listGraph.getRouteVertices(0, listGraph.size()-1))
+            if(matrixGraph.getPathVertices(0, matrixGraph.size() - 1) !=
+                    listGraph.getPathVertices(0, listGraph.size() - 1))
             {
-                std::cout<<"FAILED [getRouteVertices]\n";
+                std::cout<<"FAILED [getPathVertices]\n";
                 return false;
             }
             if(matrixGraph.weaklyConnected() != listGraph.weaklyConnected())

@@ -29,7 +29,7 @@ public:
     void clear(); //cleans the graph
     void randomGraph(unsigned minVertices, unsigned maxVertices, double edgeProb, const T_vertices &verticesData, const T_edges &edgesData);
         //fill graph with random number of vertices and random edges
-    unsigned getRouteLength(unsigned from, unsigned to) const; //returns number of edges between 2 vertices (or 0, if disconnected)
+    unsigned getPathLength(unsigned from, unsigned to) const; //returns number of edges between 2 vertices (or 0, if disconnected)
     Graph<T_vertices, T_edges>& operator=(const Graph<T_vertices, T_edges> &toCopy); //copy
 protected:
     virtual void addVertex(const T_vertices &data) = 0; //add a new vertex
@@ -42,7 +42,7 @@ protected:
     virtual std::string getString() const = 0; //return a string representation of adjacency matrix
     virtual bool stronglyConnected() const = 0; //checks if the graph is strongly connected
     virtual bool weaklyConnected() const = 0; //checks if the graph is weakly connected
-    virtual std::vector<unsigned> getRouteVertices(unsigned from, unsigned to) const = 0; //returns vertices chain between 2 vertices [from-->to]
+    virtual std::vector<unsigned> getPathVertices(unsigned from, unsigned to) const = 0; //returns vertices chain between 2 vertices [from-->to]
     virtual T_vertices& operator()(unsigned vertex) = 0; //get a reference to vertex
     virtual const T_vertices& operator()(unsigned vertex) const = 0; //get a const reference to vertex
     virtual T_edges& operator()(unsigned from, unsigned to) = 0; //get a reference to edge
@@ -75,7 +75,7 @@ public:
     std::string getString() const override; //return a string representation of adjacency matrix
     bool stronglyConnected() const override; //checks if the graph is strongly connected
     bool weaklyConnected() const override; //checks if the graph is weakly connected
-    std::vector<unsigned> getRouteVertices(unsigned from, unsigned to) const override; //returns vertices chain between 2 vertices [from-->to]
+    std::vector<unsigned> getPathVertices(unsigned from, unsigned to) const override; //returns vertices chain between 2 vertices [from-->to]
 
     MatrixGraph<T_vertices, T_edges>& operator=(const MatrixGraph<T_vertices, T_edges> &toCopy); //MatrixGraph = MatrixGraph
     MatrixGraph<T_vertices, T_edges>& operator=(const ListGraph<T_vertices, T_edges> &toCopy); //MatrixGraph = ListGraph
@@ -116,7 +116,7 @@ public:
     std::string getString() const override; //return a string representation of adjacency list
     bool stronglyConnected() const override; //checks if the graph is strongly connected
     bool weaklyConnected() const override; //checks if the graph is weakly connected
-    std::vector<unsigned> getRouteVertices(unsigned from, unsigned to) const override; //returns vertices chain between 2 vertices [from-->to]
+    std::vector<unsigned> getPathVertices(unsigned from, unsigned to) const override; //returns vertices chain between 2 vertices [from-->to]
 
     ListGraph<T_vertices, T_edges>& operator=(const ListGraph<T_vertices, T_edges> &toCopy); //ListGraph = ListGraph
     ListGraph<T_vertices, T_edges>& operator=(const MatrixGraph<T_vertices, T_edges> &toCopy); //ListGraph = MatrixGraph
@@ -170,9 +170,9 @@ void Graph<T_vertices, T_edges>::randomGraph(unsigned minVertices, unsigned maxV
 }
 
 template <class T_vertices, class T_edges>
-unsigned Graph<T_vertices, T_edges>::getRouteLength(unsigned from, unsigned to) const
+unsigned Graph<T_vertices, T_edges>::getPathLength(unsigned from, unsigned to) const
 {
-    unsigned length = (this->getRouteVertices(from,to)).size();
+    unsigned length = (this->getPathVertices(from, to)).size();
     if(length==0) return 0;
     return length-1;
 }
@@ -418,7 +418,7 @@ bool MatrixGraph<T_vertices, T_edges>::weaklyConnected() const
 }
 
 template <class T_vertices, class T_edges>
-std::vector<unsigned> MatrixGraph<T_vertices, T_edges>::getRouteVertices(unsigned from, unsigned to) const
+std::vector<unsigned> MatrixGraph<T_vertices, T_edges>::getPathVertices(unsigned from, unsigned to) const
 {
     assert(from!=to);
     std::vector<unsigned> route;
@@ -746,7 +746,7 @@ bool ListGraph<T_vertices, T_edges>::weaklyConnected() const
 }
 
 template <class T_vertices, class T_edges>
-std::vector<unsigned> ListGraph<T_vertices, T_edges>::getRouteVertices(unsigned from, unsigned to) const
+std::vector<unsigned> ListGraph<T_vertices, T_edges>::getPathVertices(unsigned from, unsigned to) const
 {
     assert(from!=to);
     std::vector<unsigned> route;

@@ -62,7 +62,7 @@ private:
     std::vector<unsigned*> BFS(unsigned start, unsigned end) const;
 public:
     MatrixGraph(); //empty constructor
-    //MatrixGraph(MatrixGraph<T_vertices, T_edges> &toCopy); //copy constructor from MatrixGraph
+    MatrixGraph(const MatrixGraph<T_vertices, T_edges> &toCopy); //copy constructor from MatrixGraph
     explicit MatrixGraph(const ListGraph<T_vertices, T_edges> &toCopy); //copy constructor from ListGraph
     ~MatrixGraph(); //destructor
     void addVertex(const T_vertices &data) override; //add a new vertex
@@ -103,7 +103,7 @@ private:
     std::vector<unsigned*> BFS(unsigned start, unsigned end) const;
 public:
     ListGraph(); //empty constructor
-    //ListGraph(ListGraph<T_vertices, T_edges> &toCopy); //copy constructor from ListGraph
+    ListGraph(const ListGraph<T_vertices, T_edges> &toCopy); //copy constructor from ListGraph
     explicit ListGraph(const MatrixGraph<T_vertices, T_edges> &toCopy); //copy constructor from MatrixGraph
     ~ListGraph(); //destructor
     void addVertex(const T_vertices &data) override; //add a new vertex
@@ -261,6 +261,13 @@ MatrixGraph<T_vertices, T_edges>::MatrixGraph()
     verticesN = 0;
     vertices = {};
     edges = {};
+}
+
+template <class T_vertices, class T_edges>
+MatrixGraph<T_vertices, T_edges>::MatrixGraph(const MatrixGraph<T_vertices, T_edges> &toCopy)
+{
+    verticesN = 0;
+    *this = toCopy;
 }
 
 template <class T_vertices, class T_edges>
@@ -554,6 +561,13 @@ ListGraph<T_vertices, T_edges>::ListGraph()
     verticesN = 0;
     vertices = {};
     edges = {};
+}
+
+template <class T_vertices, class T_edges>
+ListGraph<T_vertices, T_edges>::ListGraph(const ListGraph<T_vertices, T_edges> &toCopy)
+{
+    verticesN = 0;
+    *this = toCopy;
 }
 
 template <class T_vertices, class T_edges>

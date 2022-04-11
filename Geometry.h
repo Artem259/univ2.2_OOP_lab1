@@ -340,7 +340,7 @@ std::ostream& operator <<(std::ostream &ofs, const Line &line)
 }
 bool operator ==(const Line &first, const Line &second)
 {
-    return (getAngle(first,second) <= EPSILON);
+    return (getAngle(first,second)<=EPSILON && isEqual(first.c/first.b,second.c/second.b));
 }
 bool operator !=(const Line &first, const Line &second)
 {

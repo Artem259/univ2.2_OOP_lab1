@@ -133,12 +133,12 @@ bool isEqual(double a, double b)
 }
 
 //---------------------------------------------------------------------------------------------------------------//
-// functions related to struct Geometry
+// functions related to class Geometry
 
 Geometry::~Geometry() = default;
 
 //---------------------------------------------------------------------------------------------------------------//
-// functions related to struct Point
+// functions related to class Point
 
 Point Point::getSymmetric(const Line &line) const
 {

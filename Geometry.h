@@ -58,7 +58,7 @@ private:
     double a,b,c; //format: ax+by+c=0, b!=0
 public:
     Line() : a(-1), b(1), c(0) {}; //y-x=0
-    Line(double a, double b, double c) : a(a), b(b), c(c) {};
+    Line(double a, double b, double c);
     Line(const Line &line);
     Line(double _k, double _b); //y=kx+b => -kx+y-b=0
     Line(const Point &first, const Point &second);
@@ -100,8 +100,8 @@ private:
     Line getTangent(const Point &point) const;
 public:
     Circle() : center(0,0), radius(1) {}; //(x2)+(y2)=1
-    Circle(Point center, double radius) : center(std::move(center)), radius(radius) {};
-    explicit Circle(double radius) : center(0,0), radius(radius) {};
+    Circle(Point center, double radius);
+    explicit Circle(double radius);
     Circle(const Circle &circle);
     void setCenter(Point _center);
     void setRadius(double _radius);
@@ -217,7 +217,10 @@ Point operator -(const Point &first, const Point &second)
 
 //---------------------------------------------------------------------------------------------------------------//
 // functions related to class Line
-
+Line::Line(double a, double b, double c) : a(a), b(b), c(c)
+{
+    assert(b!=0);
+}
 Line::Line(const Line &line)
 {
     a = line.a;
@@ -357,6 +360,14 @@ Point operator &&(const Line &first, const Line &second)
 //---------------------------------------------------------------------------------------------------------------//
 // functions related to class Circle
 
+Circle::Circle(Point center, double radius) : center(std::move(center)), radius(radius)
+{
+    assert(radius!=0);
+}
+Circle::Circle(double radius) : center(0,0), radius(radius)
+{
+    assert(radius!=0);
+}
 Circle::Circle(const Circle &circle)
 {
     center = circle.center;

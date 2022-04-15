@@ -22,6 +22,7 @@ class Geometry
 {
 public:
     virtual ~Geometry() = 0;
+    static bool isDoublesEqual(double a, double b);
 };
 
 class Point : public Geometry
@@ -126,16 +127,13 @@ public:
 };
 
 //---------------------------------------------------------------------------------------------------------------//
-
-bool isEqual(double a, double b)
-{
-    return (std::abs(a-b) <= EPSILON);
-}
-
-//---------------------------------------------------------------------------------------------------------------//
 // functions related to class Geometry
 
 Geometry::~Geometry() = default;
+bool Geometry::isDoublesEqual(double a, double b)
+{
+    return (std::abs(a-b) <= EPSILON);
+}
 
 //---------------------------------------------------------------------------------------------------------------//
 // functions related to class Point
@@ -155,14 +153,14 @@ Point Point::inversion(const Circle &circle) const
 }
 bool Point::isLiesOn(const Line &line) const
 {
-    return isEqual(line.getA()*x+line.getB()*y+line.getC(), 0);
+    return isDoublesEqual(line.getA()*x+line.getB()*y+line.getC(), 0);
 }
 bool Point::isLiesOn(const Circle &circle) const
 {
     double centerX = circle.getCenter().x;
     double centerY = circle.getCenter().y;
     double R = circle.getRadius();
-    return isEqual((x-centerX)*(x-centerX)+(y-centerY)*(y-centerY), R*R);
+    return isDoublesEqual((x-centerX)*(x-centerX)+(y-centerY)*(y-centerY), R*R);
 }
 std::string Point::toString() const
 {
@@ -191,7 +189,7 @@ std::ostream& operator <<(std::ostream &ofs, const Point &point)
 }
 bool operator ==(const Point &first, const Point &second)
 {
-    return (isEqual(first.x, second.x) && isEqual(first.y, second.y));
+    return (Geometry::isDoublesEqual(first.x, second.x) && Geometry::isDoublesEqual(first.y, second.y));
 }
 bool operator !=(const Point &first, const Point &second)
 {
@@ -340,7 +338,7 @@ std::ostream& operator <<(std::ostream &ofs, const Line &line)
 }
 bool operator ==(const Line &first, const Line &second)
 {
-    return (angle(first, second) <= EPSILON && isEqual(first.c / first.b, second.c / second.b));
+    return (angle(first, second) <= EPSILON && Geometry::isDoublesEqual(first.c / first.b, second.c / second.b));
 }
 bool operator !=(const Line &first, const Line &second)
 {
@@ -447,7 +445,7 @@ Line Circle::getTangent(const Point &point) const
 
 bool operator ==(const Circle &first, const Circle &second)
 {
-    return (first.center==second.center && isEqual(first.radius,second.radius));
+    return (first.center==second.center && Geometry::isDoublesEqual(first.radius,second.radius));
 }
 bool operator !=(const Circle &first, const Circle &second)
 {
@@ -522,7 +520,7 @@ std::vector<Point> operator &&(const Line &line, const Circle &circle)
     double Y1 = -(a/b)*X1-(c/b);
     double Y2 = -(a/b)*X2-(c/b);
     res.emplace_back(X1,Y1);
-    if(isEqual(D,0)) return res;
+    if(Geometry::isDoublesEqual(D,0)) return res;
     res.emplace_back(X2,Y2);
     return res;
 }

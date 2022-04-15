@@ -333,7 +333,7 @@ bool AngleLineLine()
     for(size_t i=0; i<len; i++)
     {
         std::cout<<"Test "<<i<<": ";
-        currRes = getAngle(l1[i], l2[i]);
+        currRes = angle(l1[i], l2[i]);
         if(round(res[i]*1000)/1000 != round(currRes*1000)/1000)
         {
             std::cout<<"FAILED [value]\n";
@@ -375,7 +375,7 @@ bool AngleCircleCircle()
     for(size_t i=0; i<len; i++)
     {
         std::cout<<"Test "<<i<<": ";
-        currRes = getAngle(c1[i], c2[i]);
+        currRes = angle(c1[i], c2[i]);
         if(round(res[i]*1000)/1000 != round(currRes*1000)/1000)
         {
             std::cout<<"FAILED [value]\n";
@@ -417,7 +417,7 @@ bool SymmetricPoint()
     for(size_t i=0; i<len; i++)
     {
         std::cout<<"Test "<<i<<": ";
-        currRes = p[i].getSymmetric(l[i]);
+        currRes = p[i].symmetric(l[i]);
         if(res[i] != currRes)
         {
             std::cout<<"FAILED [value]\n";
@@ -459,7 +459,7 @@ bool SymmetricLine()
     for(size_t i=0; i<len; i++)
     {
         std::cout<<"Test "<<i<<": ";
-        currRes = l1[i].getSymmetric(l2[i]);
+        currRes = l1[i].symmetric(l2[i]);
         if(res[i] != currRes)
         {
             std::cout<<"FAILED [value]\n";
@@ -501,7 +501,7 @@ bool SymmetricCircle()
     for(size_t i=0; i<len; i++)
     {
         std::cout<<"Test "<<i<<": ";
-        currRes = c[i].getSymmetric(l[i]);
+        currRes = c[i].symmetric(l[i]);
         if(res[i] != currRes)
         {
             std::cout<<"FAILED [value]\n";
@@ -525,7 +525,7 @@ bool InversionLine()
     for(size_t i=0; i<len; i++)
     {
         std::cout<<"Test "<<i<<": ";
-        currRes = l[i].getInversion(c[i]);
+        currRes = l[i].inversion(c[i]);
         if(res[i] != currRes)
         {
             std::cout<<"FAILED [value]\n";
@@ -549,7 +549,7 @@ bool InversionCircle()
     for(size_t i=0; i<len; i++)
     {
         std::cout<<"Test "<<i<<": ";
-        currRes = c1[i].getInversion(c2[i]);
+        currRes = c1[i].inversion(c2[i]);
         if(res[i] != currRes)
         {
             std::cout<<"FAILED [value]\n";
@@ -616,7 +616,7 @@ int main()
     std::cout<<myGraph(0,1)<<std::endl;
     myGraph(0,1)=myGraph(1,0);
     std::cout<<myGraph(0,1)<<std::endl;
-    std::cout<<getDistance(myGraph(0, 1),myGraph(2,1))<<std::endl;
+    std::cout << distance(myGraph(0, 1), myGraph(2, 1)) << std::endl;
 
     std::cout<<std::endl;
     Point p{2,-5};

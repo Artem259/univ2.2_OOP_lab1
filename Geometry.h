@@ -33,15 +33,15 @@ public:
     Point(double x, double y) : x(x), y(y) {};
     Point() : x(0), y(0) {};
 
-    Point getSymmetric(const Line &line) const;
-    Point getInversion(const Circle &circle) const;
+    Point symmetric(const Line &line) const;
+    Point inversion(const Circle &circle) const;
     bool isLiesOn(const Line &line) const;
     bool isLiesOn(const Circle &circle) const;
-    std::string getString() const;
+    std::string toString() const;
     Point round(const unsigned &n) const;
 
     Point operator -() const;
-    friend double getDistance(const Point &first, const Point &second);
+    friend double distance(const Point &first, const Point &second);
     friend std::ostream& operator <<(std::ostream &ofs, const Point &point);
     friend bool operator ==(const Point &first, const Point &second);
     friend bool operator !=(const Point &first, const Point &second);
@@ -71,10 +71,10 @@ public:
     double getB() const;
     double getC() const;
 
-    Line getSymmetric(const Line &line) const;
-    std::shared_ptr<Geometry> getInversion(const Circle &circle) const;
-    Point getProjection(const Point &point) const;
-    std::string getString() const;
+    Line symmetric(const Line &line) const;
+    std::shared_ptr<Geometry> inversion(const Circle &circle) const;
+    Point projection(const Point &point) const;
+    std::string toString() const;
     Line round(const unsigned &n) const;
 
     friend std::ostream& operator <<(std::ostream &ofs, const Line &line);
@@ -82,9 +82,9 @@ public:
     friend bool operator !=(const Line &first, const Line &second);
     friend Point operator &&(const Line &first, const Line &second);
 
-    friend double getAngle(const Line &first, const Line &second);
-    friend double getAngle(const Line &line, const Circle &circle);
-    friend double getAngle(const Circle &circle, const Line &line);
+    friend double angle(const Line &first, const Line &second);
+    friend double angle(const Line &line, const Circle &circle);
+    friend double angle(const Circle &circle, const Line &line);
     friend std::vector<Point> operator &&(const Line &line, const Circle &circle);
     friend std::vector<Point> operator &&(const Circle &circle, const Line &line);
     friend std::vector<Point> operator &&(const Circle &first, const Circle &second);
@@ -107,10 +107,10 @@ public:
     Point getCenter() const;
     double getRadius() const;
 
-    Circle getSymmetric(const Line &line) const;
-    std::shared_ptr<Geometry> getInversion(const Circle &circle) const;
-    Point getProjection(const Point &point) const;
-    std::string getString() const;
+    Circle symmetric(const Line &line) const;
+    std::shared_ptr<Geometry> inversion(const Circle &circle) const;
+    Point projection(const Point &point) const;
+    std::string toString() const;
     Circle round(const unsigned &n) const;
 
     friend std::ostream& operator <<(std::ostream &ofs, const Circle &circle);
@@ -118,9 +118,9 @@ public:
     friend bool operator !=(const Circle &first, const Circle &second);
     friend std::vector<Point> operator &&(const Circle &first, const Circle &second);
 
-    friend double getAngle(const Circle &first, const Circle &second);
-    friend double getAngle(const Line &line, const Circle &circle);
-    friend double getAngle(const Circle &circle, const Line &line);
+    friend double angle(const Circle &first, const Circle &second);
+    friend double angle(const Line &line, const Circle &circle);
+    friend double angle(const Circle &circle, const Line &line);
     friend std::vector<Point> operator &&(const Line &line, const Circle &circle);
     friend std::vector<Point> operator &&(const Circle &circle, const Line &line);
 };
@@ -140,12 +140,12 @@ Geometry::~Geometry() = default;
 //---------------------------------------------------------------------------------------------------------------//
 // functions related to class Point
 
-Point Point::getSymmetric(const Line &line) const
+Point Point::symmetric(const Line &line) const
 {
-    Point point = line.getProjection(*this);
+    Point point = line.projection(*this);
     return {2*point.x-x, 2*point.y-y};
 }
-Point Point::getInversion(const Circle &circle) const
+Point Point::inversion(const Circle &circle) const
 {
     Point c = circle.getCenter();
     double r = circle.getRadius();
@@ -164,7 +164,7 @@ bool Point::isLiesOn(const Circle &circle) const
     double R = circle.getRadius();
     return isEqual((x-centerX)*(x-centerX)+(y-centerY)*(y-centerY), R*R);
 }
-std::string Point::getString() const
+std::string Point::toString() const
 {
     return "{"+std::to_string(x)+";"+std::to_string(y)+"}";
 }
@@ -180,13 +180,13 @@ Point Point::operator -() const
 {
     return {-this->x, -this->y};
 }
-double getDistance(const Point &first, const Point &second)
+double distance(const Point &first, const Point &second)
 {
     return sqrt((first.x-second.x)*(first.x-second.x)+(first.y-second.y)*(first.y-second.y));
 }
 std::ostream& operator <<(std::ostream &ofs, const Point &point)
 {
-    ofs << point.getString();
+    ofs << point.toString();
     return ofs;
 }
 bool operator ==(const Point &first, const Point &second)
@@ -286,15 +286,15 @@ double Line::getC() const
     return c;
 }
 
-Line Line::getSymmetric(const Line &line) const
+Line Line::symmetric(const Line &line) const
 {
     const double x1 = -1;
     const double x2 = 1;
     Point first = {x1, -(a/b)*x1-c/b};
     Point second = {x2, -(a/b)*x2-c/b};
-    return {first.getSymmetric(line), second.getSymmetric(line)};
+    return {first.symmetric(line), second.symmetric(line)};
 }
-std::shared_ptr<Geometry> Line::getInversion(const Circle &circle) const
+std::shared_ptr<Geometry> Line::inversion(const Circle &circle) const
 {
     if(circle.getCenter().isLiesOn(*this))
     {
@@ -304,14 +304,14 @@ std::shared_ptr<Geometry> Line::getInversion(const Circle &circle) const
     else
     {
         Circle res;
-        Point point = this->getProjection(circle.getCenter());
-        point = point.getInversion(circle);
-        res.setRadius(getDistance(point, circle.getCenter())/2);
+        Point point = this->projection(circle.getCenter());
+        point = point.inversion(circle);
+        res.setRadius(distance(point, circle.getCenter()) / 2);
         res.setCenter({(point.x+circle.getCenter().x)/2, (point.y+circle.getCenter().y)/2});
         return std::shared_ptr<Geometry>(new Circle{res});
     }
 }
-Point Line::getProjection(const Point &point) const
+Point Line::projection(const Point &point) const
 {
     double x = point.x;
     double y = point.y;
@@ -319,7 +319,7 @@ Point Line::getProjection(const Point &point) const
     double tmpY = -(a/b)*tmpX-c/b;
     return {tmpX, tmpY};
 }
-std::string Line::getString() const
+std::string Line::toString() const
 {
     return "("+std::to_string(a)+")x+("+std::to_string(b)+")y+("+std::to_string(c)+")=0";
 }
@@ -335,12 +335,12 @@ Line Line::round(const unsigned &n) const
 
 std::ostream& operator <<(std::ostream &ofs, const Line &line)
 {
-    ofs << line.getString();
+    ofs << line.toString();
     return ofs;
 }
 bool operator ==(const Line &first, const Line &second)
 {
-    return (getAngle(first,second)<=EPSILON && isEqual(first.c/first.b,second.c/second.b));
+    return (angle(first, second) <= EPSILON && isEqual(first.c / first.b, second.c / second.b));
 }
 bool operator !=(const Line &first, const Line &second)
 {
@@ -383,11 +383,11 @@ double Circle::getRadius() const
     return radius;
 }
 
-Circle Circle::getSymmetric(const Line &line) const
+Circle Circle::symmetric(const Line &line) const
 {
-    return {center.getSymmetric(line), radius};
+    return {center.symmetric(line), radius};
 }
-std::shared_ptr<Geometry> Circle::getInversion(const Circle &circle) const
+std::shared_ptr<Geometry> Circle::inversion(const Circle &circle) const
 {
     if(circle.getCenter().isLiesOn(*this))
     {
@@ -395,7 +395,7 @@ std::shared_ptr<Geometry> Circle::getInversion(const Circle &circle) const
         Line line{center, circle.center};
         line = {center, center+Point{line.getA(), line.getB()}};
         std::vector<Point> points = *this && line;
-        res = Line{points[0].getInversion(circle), points[1].getInversion(circle)};
+        res = Line{points[0].inversion(circle), points[1].inversion(circle)};
         return std::shared_ptr<Geometry>(new Line{res});
     }
     else
@@ -410,15 +410,15 @@ std::shared_ptr<Geometry> Circle::getInversion(const Circle &circle) const
         return std::shared_ptr<Geometry>(new Circle{res});
     }
 }
-Point Circle::getProjection(const Point &point) const
+Point Circle::projection(const Point &point) const
 {
     assert(center != point);
     Line line{center, point};
     std::vector<Point> candidates = *this && line;
-    if(getDistance(candidates[0], point) < getDistance(center, point)) return candidates[0];
+    if(distance(candidates[0], point) < distance(center, point)) return candidates[0];
     return candidates[1];
 }
-std::string Circle::getString() const
+std::string Circle::toString() const
 {
     return "(x-("+std::to_string(center.x)+"))^2 + (y-("+std::to_string(center.y)+"))^2 = ("+std::to_string(radius)+")^2";
 }
@@ -433,7 +433,7 @@ Circle Circle::round(const unsigned &n) const
 
 std::ostream& operator <<(std::ostream &ofs, const Circle &circle)
 {
-    ofs << circle.getString();
+    ofs << circle.toString();
     return ofs;
 }
 Line Circle::getTangent(const Point &point) const
@@ -481,27 +481,27 @@ std::vector<Point> operator &&(const Circle &first, const Circle &second)
 //---------------------------------------------------------------------------------------------------------------//
 // additional functions
 
-double getAngle(const Line &first, const Line &second)
+double angle(const Line &first, const Line &second)
 {
     double res = abs(atan(-(first.a/first.b))-atan(-(second.a/second.b)));
     if(res>M_PI/2) return M_PI-res;
     return res;
 }
-double getAngle(const Line &line, const Circle &circle)
+double angle(const Line &line, const Circle &circle)
 {
     std::vector<Point> points = line && circle;
     if(points.empty()) return -1;
-    return getAngle(line, circle.getTangent(points[0]));
+    return angle(line, circle.getTangent(points[0]));
 }
-double getAngle(const Circle &circle, const Line &line)
+double angle(const Circle &circle, const Line &line)
 {
-    return getAngle(line, circle);
+    return angle(line, circle);
 }
-double getAngle(const Circle &first, const Circle &second)
+double angle(const Circle &first, const Circle &second)
 {
     std::vector<Point> points = first && second;
     if(points.empty()) return -1;
-    return getAngle(first.getTangent(points[0]), second.getTangent(points[0]));
+    return angle(first.getTangent(points[0]), second.getTangent(points[0]));
 }
 std::vector<Point> operator &&(const Line &line, const Circle &circle)
 {

@@ -19,6 +19,9 @@ class MatrixGraph;
 template <class T_vertices, class T_edges>
 class ListGraph;
 
+template <class T_vertices, class T_edges>
+std::ostream& operator <<(std::ostream &ofs, const Graph<T_vertices, T_edges> &graph);
+
 //---------------------------------------------------------------------------------------------------------------//
 
 template <class T_vertices, class T_edges>
@@ -31,6 +34,7 @@ public:
         //fill graph with random number of vertices and random edges
     unsigned getPathLength(unsigned from, unsigned to) const; //returns number of edges between 2 vertices (or 0, if disconnected)
     Graph<T_vertices, T_edges>& operator=(const Graph<T_vertices, T_edges> &toCopy); //copy
+    friend std::ostream& operator << <>(std::ostream &ofs, const Graph<T_vertices, T_edges> &graph);
 protected:
     virtual void addVertex(const T_vertices &data) = 0; //add a new vertex
     virtual void delVertex(unsigned vertex) = 0; //delete a vertex
@@ -39,7 +43,7 @@ protected:
     virtual bool isEdgeExists(unsigned from, unsigned to) const = 0; //checks if there's an edge in the graph
     virtual unsigned size() const = 0; //returns the number of vertices in the graph
     virtual std::vector<std::vector<unsigned>> getEdges() const = 0; //return all edges in graph
-    virtual std::string getString() const = 0; //return a string representation of adjacency matrix
+    virtual std::string toString() const = 0; //return a string representation of adjacency matrix
     virtual bool stronglyConnected() const = 0; //checks if the graph is strongly connected
     virtual bool weaklyConnected() const = 0; //checks if the graph is weakly connected
     virtual std::vector<unsigned> getPathVertices(unsigned from, unsigned to) const = 0; //returns vertices chain between 2 vertices [from-->to]
@@ -72,7 +76,7 @@ public:
     bool isEdgeExists(unsigned from, unsigned to) const override; //checks if there's an edge in the graph
     unsigned size() const override; //returns the number of vertices in the graph
     std::vector<std::vector<unsigned>> getEdges() const override; //return all edges in graph
-    std::string getString() const override; //return a string representation of adjacency matrix
+    std::string toString() const override; //return a string representation of adjacency matrix
     bool stronglyConnected() const override; //checks if the graph is strongly connected
     bool weaklyConnected() const override; //checks if the graph is weakly connected
     std::vector<unsigned> getPathVertices(unsigned from, unsigned to) const override; //returns vertices chain between 2 vertices [from-->to]
@@ -113,7 +117,7 @@ public:
     bool isEdgeExists(unsigned from, unsigned to) const override; //checks if there's an edge in the graph
     unsigned size() const override; //returns the number of vertices in the graph
     std::vector<std::vector<unsigned>> getEdges() const override; //return all edges in graph
-    std::string getString() const override; //return a string representation of adjacency list
+    std::string toString() const override; //return a string representation of adjacency list
     bool stronglyConnected() const override; //checks if the graph is strongly connected
     bool weaklyConnected() const override; //checks if the graph is weakly connected
     std::vector<unsigned> getPathVertices(unsigned from, unsigned to) const override; //returns vertices chain between 2 vertices [from-->to]
@@ -191,6 +195,13 @@ Graph<T_vertices, T_edges>& Graph<T_vertices, T_edges>::operator=(const Graph<T_
         this->addEdge(i[0], i[1], toCopy(i[0], i[1]));
     }
     return *this;
+}
+
+template <class T_vertices, class T_edges>
+std::ostream& operator <<(std::ostream &ofs, const Graph<T_vertices, T_edges> &graph)
+{
+    ofs << graph.toString();
+    return ofs;
 }
 
 //---------------------------------------------------------------------------------------------------------------//
@@ -376,7 +387,7 @@ std::vector<std::vector<bool>> MatrixGraph<T_vertices, T_edges>::getMatrix() con
 }
 
 template <class T_vertices, class T_edges>
-std::string MatrixGraph<T_vertices, T_edges>::getString() const
+std::string MatrixGraph<T_vertices, T_edges>::toString() const
 {
     std::string res;
     for(unsigned i=0; i<verticesN; i++)
@@ -702,7 +713,7 @@ std::vector<std::vector<unsigned>> ListGraph<T_vertices, T_edges>::getList() con
 }
 
 template <class T_vertices, class T_edges>
-std::string ListGraph<T_vertices, T_edges>::getString() const
+std::string ListGraph<T_vertices, T_edges>::toString() const
 {
     std::string res;
     unsigned currLen;

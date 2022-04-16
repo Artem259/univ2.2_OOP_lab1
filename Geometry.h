@@ -349,8 +349,8 @@ bool operator !=(const Line &first, const Line &second)
 }
 Point operator &&(const Line &first, const Line &second)
 {
-    assert(!(isEqual(first.a,second.a) && isEqual(first.b,second.b)));
-    assert(!(isEqual(first.a,0) && isEqual(second.a,0)));
+    assert(!(Geometry::isDoublesEqual(first.a,second.a) && Geometry::isDoublesEqual(first.b,second.b)));
+    assert(!(Geometry::isDoublesEqual(first.a,0) && Geometry::isDoublesEqual(second.a,0)));
     Point res;
     res.x = (second.b*first.c-first.b*second.c)/(second.a*first.b-first.a*second.b);
     res.y = -(first.a/first.b)*res.x-(first.c/first.b);
@@ -465,7 +465,7 @@ bool operator !=(const Circle &first, const Circle &second)
 std::vector<Point> operator &&(const Circle &first, const Circle &second)
 {
     assert(first!=second);
-    assert(!isEqual(first.center.y,second.center.y));
+    assert(!Geometry::isDoublesEqual(first.center.y,second.center.y));
     Circle firstTmp = first;
     Circle secondTmp = second;
     Point offset = firstTmp.center;

@@ -259,10 +259,15 @@ std::vector<unsigned*> MatrixGraph<T_vertices, T_edges>::BFS(unsigned start, uns
                 visited[i] = true;
                 queue.push(i);
                 prev[i] = new unsigned{curr};
-                if(i==end) return prev;
+                if(i==end)
+                {
+                    delete []visited;
+                    return prev;
+                }
             }
         }
     }
+    delete []visited;
     return prev;
 }
 
@@ -559,10 +564,15 @@ std::vector<unsigned*> ListGraph<T_vertices, T_edges>::BFS(unsigned start, unsig
                 visited[edges[curr][i].vertex] = true;
                 queue.push(edges[curr][i].vertex);
                 prev[edges[curr][i].vertex] = new unsigned{curr};
-                if(edges[curr][i].vertex==end) return prev;
+                if(edges[curr][i].vertex==end)
+                {
+                    delete []visited;
+                    return prev;
+                }
             }
         }
     }
+    delete []visited;
     return prev;
 }
 

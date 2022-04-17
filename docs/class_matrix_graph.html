@@ -80,15 +80,18 @@ Inheritance diagram for MatrixGraph&lt; T_vertices, T_edges &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a0ed96a95bc067cbccd921c4380e8a82a"><td class="memItemLeft" align="right" valign="top"><a id="a0ed96a95bc067cbccd921c4380e8a82a" name="a0ed96a95bc067cbccd921c4380e8a82a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>MatrixGraph</b> (const <a class="el" href="class_matrix_graph.html">MatrixGraph</a>&lt; T_vertices, T_edges &gt; &amp;toCopy)</td></tr>
+<tr class="separator:a0ed96a95bc067cbccd921c4380e8a82a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8d303dcae0b9ba848a31139edec4af2"><td class="memItemLeft" align="right" valign="top"><a id="ad8d303dcae0b9ba848a31139edec4af2" name="ad8d303dcae0b9ba848a31139edec4af2"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>MatrixGraph</b> (const <a class="el" href="class_list_graph.html">ListGraph</a>&lt; T_vertices, T_edges &gt; &amp;toCopy)</td></tr>
 <tr class="separator:ad8d303dcae0b9ba848a31139edec4af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a541561553239102c481511c8540e2870"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_graph.html#a541561553239102c481511c8540e2870">addVertex</a> (const T_vertices &amp;data)</td></tr>
-<tr class="separator:a541561553239102c481511c8540e2870"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41e6dc59bc8d22573d5d3d8872c774d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_graph.html#a41e6dc59bc8d22573d5d3d8872c774d7">addVertex</a> (const T_vertices &amp;data) override</td></tr>
+<tr class="separator:a41e6dc59bc8d22573d5d3d8872c774d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe02523ed4c69488e8196f43118a3aab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_graph.html#afe02523ed4c69488e8196f43118a3aab">delVertex</a> (unsigned vertex) override</td></tr>
 <tr class="separator:afe02523ed4c69488e8196f43118a3aab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada28d06d08c22a3c8dddad944cd71740"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_graph.html#ada28d06d08c22a3c8dddad944cd71740">addEdge</a> (unsigned from, unsigned to, const T_edges &amp;data)</td></tr>
-<tr class="separator:ada28d06d08c22a3c8dddad944cd71740"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2cbc03eab213c72a0e5992fefa9556f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_graph.html#ad2cbc03eab213c72a0e5992fefa9556f">addEdge</a> (unsigned from, unsigned to, const T_edges &amp;data) override</td></tr>
+<tr class="separator:ad2cbc03eab213c72a0e5992fefa9556f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49683c430916c1339de8be8183e58ffd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_graph.html#a49683c430916c1339de8be8183e58ffd">delEdge</a> (unsigned from, unsigned to) override</td></tr>
 <tr class="separator:a49683c430916c1339de8be8183e58ffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f081367f8242c640c7de3a409fe9971"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_graph.html#a5f081367f8242c640c7de3a409fe9971">isEdgeExists</a> (unsigned from, unsigned to) const override</td></tr>
@@ -97,14 +100,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a80288503fd74efe76038f3aa6b7a9510"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e78bf9ae914726fc1e444c9b5b7452f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; unsigned &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_graph.html#a1e78bf9ae914726fc1e444c9b5b7452f">getEdges</a> () const override</td></tr>
 <tr class="separator:a1e78bf9ae914726fc1e444c9b5b7452f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad66279b8b94a99bd6bfc3ef514dcf51f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_graph.html#ad66279b8b94a99bd6bfc3ef514dcf51f">getString</a> () const override</td></tr>
-<tr class="separator:ad66279b8b94a99bd6bfc3ef514dcf51f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0a2a4eae51753161b84892adae16fd3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_graph.html#ac0a2a4eae51753161b84892adae16fd3">toString</a> () const override</td></tr>
+<tr class="separator:ac0a2a4eae51753161b84892adae16fd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad362deb67838a063d93e99323bc3edf9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_graph.html#ad362deb67838a063d93e99323bc3edf9">stronglyConnected</a> () const override</td></tr>
 <tr class="separator:ad362deb67838a063d93e99323bc3edf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a305a30b492c3f95bcbfbd7ff43f53bd3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_graph.html#a305a30b492c3f95bcbfbd7ff43f53bd3">weaklyConnected</a> () const override</td></tr>
 <tr class="separator:a305a30b492c3f95bcbfbd7ff43f53bd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7dcfd09b8c24801c1d12cae1ad92d685"><td class="memItemLeft" align="right" valign="top">std::vector&lt; unsigned &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_graph.html#a7dcfd09b8c24801c1d12cae1ad92d685">getRouteVertices</a> (unsigned from, unsigned to) const override</td></tr>
-<tr class="separator:a7dcfd09b8c24801c1d12cae1ad92d685"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b959141356a00aa4f83152c4a7578ed"><td class="memItemLeft" align="right" valign="top">std::vector&lt; unsigned &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_graph.html#a1b959141356a00aa4f83152c4a7578ed">getPathVertices</a> (unsigned from, unsigned to) const override</td></tr>
+<tr class="separator:a1b959141356a00aa4f83152c4a7578ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bff3e948a8c9d4166e192c085e68346"><td class="memItemLeft" align="right" valign="top"><a id="a8bff3e948a8c9d4166e192c085e68346" name="a8bff3e948a8c9d4166e192c085e68346"></a>
 <a class="el" href="class_matrix_graph.html">MatrixGraph</a>&lt; T_vertices, T_edges &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_matrix_graph.html">MatrixGraph</a>&lt; T_vertices, T_edges &gt; &amp;toCopy)</td></tr>
 <tr class="separator:a8bff3e948a8c9d4166e192c085e68346"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,9 +129,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr
 <tr class="memitem:ab3f20d1ff3fe77ff86b68e3f50be45e2 inherit pub_methods_class_graph"><td class="memItemLeft" align="right" valign="top"><a id="ab3f20d1ff3fe77ff86b68e3f50be45e2" name="ab3f20d1ff3fe77ff86b68e3f50be45e2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>randomGraph</b> (unsigned minVertices, unsigned maxVertices, double edgeProb, const T_vertices &amp;verticesData, const T_edges &amp;edgesData)</td></tr>
 <tr class="separator:ab3f20d1ff3fe77ff86b68e3f50be45e2 inherit pub_methods_class_graph"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81001afc87870cc74cb79e5390a846c6 inherit pub_methods_class_graph"><td class="memItemLeft" align="right" valign="top"><a id="a81001afc87870cc74cb79e5390a846c6" name="a81001afc87870cc74cb79e5390a846c6"></a>
-unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>getRouteLength</b> (unsigned from, unsigned to) const</td></tr>
-<tr class="separator:a81001afc87870cc74cb79e5390a846c6 inherit pub_methods_class_graph"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afea75529d96a05a9a3d031aab5115289 inherit pub_methods_class_graph"><td class="memItemLeft" align="right" valign="top"><a id="afea75529d96a05a9a3d031aab5115289" name="afea75529d96a05a9a3d031aab5115289"></a>
+unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>getPathLength</b> (unsigned from, unsigned to) const</td></tr>
+<tr class="separator:afea75529d96a05a9a3d031aab5115289 inherit pub_methods_class_graph"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2af07d91600bb09ffd226b991dd8c2e inherit pub_methods_class_graph"><td class="memItemLeft" align="right" valign="top"><a id="af2af07d91600bb09ffd226b991dd8c2e" name="af2af07d91600bb09ffd226b991dd8c2e"></a>
 <a class="el" href="class_graph.html">Graph</a>&lt; T_vertices, T_edges &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_graph.html">Graph</a>&lt; T_vertices, T_edges &gt; &amp;toCopy)</td></tr>
 <tr class="separator:af2af07d91600bb09ffd226b991dd8c2e inherit pub_methods_class_graph"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,18 +159,18 @@ virtual unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> 
 <tr class="memitem:a53a79b056075377e1846a8cf72a96939"><td class="memItemLeft" align="right" valign="top"><a id="a53a79b056075377e1846a8cf72a96939" name="a53a79b056075377e1846a8cf72a96939"></a>
 virtual std::vector&lt; std::vector&lt; unsigned &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getEdges</b> () const =0</td></tr>
 <tr class="separator:a53a79b056075377e1846a8cf72a96939"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3661cec0a59f17c246c6bb0158ad973"><td class="memItemLeft" align="right" valign="top"><a id="ac3661cec0a59f17c246c6bb0158ad973" name="ac3661cec0a59f17c246c6bb0158ad973"></a>
-virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getString</b> () const =0</td></tr>
-<tr class="separator:ac3661cec0a59f17c246c6bb0158ad973"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54371cd1655349800f0e41763d6ca8d3"><td class="memItemLeft" align="right" valign="top"><a id="a54371cd1655349800f0e41763d6ca8d3" name="a54371cd1655349800f0e41763d6ca8d3"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>toString</b> () const =0</td></tr>
+<tr class="separator:a54371cd1655349800f0e41763d6ca8d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83aa1fed5459645a21f6154c512bb17e"><td class="memItemLeft" align="right" valign="top"><a id="a83aa1fed5459645a21f6154c512bb17e" name="a83aa1fed5459645a21f6154c512bb17e"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>stronglyConnected</b> () const =0</td></tr>
 <tr class="separator:a83aa1fed5459645a21f6154c512bb17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fadbecf967fdbe47de03155caac1753"><td class="memItemLeft" align="right" valign="top"><a id="a4fadbecf967fdbe47de03155caac1753" name="a4fadbecf967fdbe47de03155caac1753"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>weaklyConnected</b> () const =0</td></tr>
 <tr class="separator:a4fadbecf967fdbe47de03155caac1753"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d745f3937f8330825e39f4f8f1cb404"><td class="memItemLeft" align="right" valign="top"><a id="a9d745f3937f8330825e39f4f8f1cb404" name="a9d745f3937f8330825e39f4f8f1cb404"></a>
-virtual std::vector&lt; unsigned &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getRouteVertices</b> (unsigned from, unsigned to) const =0</td></tr>
-<tr class="separator:a9d745f3937f8330825e39f4f8f1cb404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2c137f1fc0990c3ef21c8373d5c2854"><td class="memItemLeft" align="right" valign="top"><a id="ad2c137f1fc0990c3ef21c8373d5c2854" name="ad2c137f1fc0990c3ef21c8373d5c2854"></a>
+virtual std::vector&lt; unsigned &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getPathVertices</b> (unsigned from, unsigned to) const =0</td></tr>
+<tr class="separator:ad2c137f1fc0990c3ef21c8373d5c2854"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76774762c1422f7486a6ffb873fea9db"><td class="memItemLeft" align="right" valign="top"><a id="a76774762c1422f7486a6ffb873fea9db" name="a76774762c1422f7486a6ffb873fea9db"></a>
 virtual T_vertices &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> (unsigned vertex)=0</td></tr>
 <tr class="separator:a76774762c1422f7486a6ffb873fea9db"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -182,8 +185,8 @@ virtual const T_edges &amp;&#160;</td><td class="memItemRight" valign="bottom"><
 <tr class="separator:a4ce67442a873407b7f1ef0a90221df00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ada28d06d08c22a3c8dddad944cd71740" name="ada28d06d08c22a3c8dddad944cd71740"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada28d06d08c22a3c8dddad944cd71740">&#9670;&nbsp;</a></span>addEdge()</h2>
+<a id="ad2cbc03eab213c72a0e5992fefa9556f" name="ad2cbc03eab213c72a0e5992fefa9556f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2cbc03eab213c72a0e5992fefa9556f">&#9670;&nbsp;</a></span>addEdge()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -219,7 +222,7 @@ template&lt;class T_vertices , class T_edges &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -228,8 +231,8 @@ template&lt;class T_vertices , class T_edges &gt; </div>
 
 </div>
 </div>
-<a id="a541561553239102c481511c8540e2870" name="a541561553239102c481511c8540e2870"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a541561553239102c481511c8540e2870">&#9670;&nbsp;</a></span>addVertex()</h2>
+<a id="a41e6dc59bc8d22573d5d3d8872c774d7" name="a41e6dc59bc8d22573d5d3d8872c774d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41e6dc59bc8d22573d5d3d8872c774d7">&#9670;&nbsp;</a></span>addVertex()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,7 +252,7 @@ template&lt;class T_vertices , class T_edges &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -354,8 +357,8 @@ template&lt;class T_vertices , class T_edges &gt; </div>
 
 </div>
 </div>
-<a id="a7dcfd09b8c24801c1d12cae1ad92d685" name="a7dcfd09b8c24801c1d12cae1ad92d685"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7dcfd09b8c24801c1d12cae1ad92d685">&#9670;&nbsp;</a></span>getRouteVertices()</h2>
+<a id="a1b959141356a00aa4f83152c4a7578ed" name="a1b959141356a00aa4f83152c4a7578ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b959141356a00aa4f83152c4a7578ed">&#9670;&nbsp;</a></span>getPathVertices()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -366,7 +369,7 @@ template&lt;class T_vertices , class T_edges &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; unsigned &gt; <a class="el" href="class_matrix_graph.html">MatrixGraph</a>&lt; T_vertices, T_edges &gt;::getRouteVertices </td>
+          <td class="memname">std::vector&lt; unsigned &gt; <a class="el" href="class_matrix_graph.html">MatrixGraph</a>&lt; T_vertices, T_edges &gt;::getPathVertices </td>
           <td>(</td>
           <td class="paramtype">unsigned&#160;</td>
           <td class="paramname"><em>from</em>, </td>
@@ -381,32 +384,6 @@ template&lt;class T_vertices , class T_edges &gt; </div>
           <td></td>
           <td>)</td>
           <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implements <a class="el" href="class_graph.html">Graph&lt; T_vertices, T_edges &gt;</a>.</p>
-
-</div>
-</div>
-<a id="ad66279b8b94a99bd6bfc3ef514dcf51f" name="ad66279b8b94a99bd6bfc3ef514dcf51f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad66279b8b94a99bd6bfc3ef514dcf51f">&#9670;&nbsp;</a></span>getString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T_vertices , class T_edges &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string <a class="el" href="class_matrix_graph.html">MatrixGraph</a>&lt; T_vertices, T_edges &gt;::getString</td>
         </tr>
       </table>
   </td>
@@ -639,6 +616,32 @@ template&lt;class T_vertices , class T_edges &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">bool <a class="el" href="class_matrix_graph.html">MatrixGraph</a>&lt; T_vertices, T_edges &gt;::stronglyConnected</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="class_graph.html">Graph&lt; T_vertices, T_edges &gt;</a>.</p>
+
+</div>
+</div>
+<a id="ac0a2a4eae51753161b84892adae16fd3" name="ac0a2a4eae51753161b84892adae16fd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0a2a4eae51753161b84892adae16fd3">&#9670;&nbsp;</a></span>toString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T_vertices , class T_edges &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="class_matrix_graph.html">MatrixGraph</a>&lt; T_vertices, T_edges &gt;::toString</td>
         </tr>
       </table>
   </td>

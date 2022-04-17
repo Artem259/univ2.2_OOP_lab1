@@ -65,6 +65,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="class_graph-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Graph&lt; T_vertices, T_edges &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
@@ -88,9 +89,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr
 <tr class="memitem:ab3f20d1ff3fe77ff86b68e3f50be45e2"><td class="memItemLeft" align="right" valign="top"><a id="ab3f20d1ff3fe77ff86b68e3f50be45e2" name="ab3f20d1ff3fe77ff86b68e3f50be45e2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>randomGraph</b> (unsigned minVertices, unsigned maxVertices, double edgeProb, const T_vertices &amp;verticesData, const T_edges &amp;edgesData)</td></tr>
 <tr class="separator:ab3f20d1ff3fe77ff86b68e3f50be45e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81001afc87870cc74cb79e5390a846c6"><td class="memItemLeft" align="right" valign="top"><a id="a81001afc87870cc74cb79e5390a846c6" name="a81001afc87870cc74cb79e5390a846c6"></a>
-unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>getRouteLength</b> (unsigned from, unsigned to) const</td></tr>
-<tr class="separator:a81001afc87870cc74cb79e5390a846c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afea75529d96a05a9a3d031aab5115289"><td class="memItemLeft" align="right" valign="top"><a id="afea75529d96a05a9a3d031aab5115289" name="afea75529d96a05a9a3d031aab5115289"></a>
+unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>getPathLength</b> (unsigned from, unsigned to) const</td></tr>
+<tr class="separator:afea75529d96a05a9a3d031aab5115289"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2af07d91600bb09ffd226b991dd8c2e"><td class="memItemLeft" align="right" valign="top"><a id="af2af07d91600bb09ffd226b991dd8c2e" name="af2af07d91600bb09ffd226b991dd8c2e"></a>
 <a class="el" href="class_graph.html">Graph</a>&lt; T_vertices, T_edges &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="class_graph.html">Graph</a>&lt; T_vertices, T_edges &gt; &amp;toCopy)</td></tr>
 <tr class="separator:af2af07d91600bb09ffd226b991dd8c2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -118,18 +119,18 @@ virtual unsigned&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> 
 <tr class="memitem:a53a79b056075377e1846a8cf72a96939"><td class="memItemLeft" align="right" valign="top"><a id="a53a79b056075377e1846a8cf72a96939" name="a53a79b056075377e1846a8cf72a96939"></a>
 virtual std::vector&lt; std::vector&lt; unsigned &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getEdges</b> () const =0</td></tr>
 <tr class="separator:a53a79b056075377e1846a8cf72a96939"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3661cec0a59f17c246c6bb0158ad973"><td class="memItemLeft" align="right" valign="top"><a id="ac3661cec0a59f17c246c6bb0158ad973" name="ac3661cec0a59f17c246c6bb0158ad973"></a>
-virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getString</b> () const =0</td></tr>
-<tr class="separator:ac3661cec0a59f17c246c6bb0158ad973"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54371cd1655349800f0e41763d6ca8d3"><td class="memItemLeft" align="right" valign="top"><a id="a54371cd1655349800f0e41763d6ca8d3" name="a54371cd1655349800f0e41763d6ca8d3"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>toString</b> () const =0</td></tr>
+<tr class="separator:a54371cd1655349800f0e41763d6ca8d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83aa1fed5459645a21f6154c512bb17e"><td class="memItemLeft" align="right" valign="top"><a id="a83aa1fed5459645a21f6154c512bb17e" name="a83aa1fed5459645a21f6154c512bb17e"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>stronglyConnected</b> () const =0</td></tr>
 <tr class="separator:a83aa1fed5459645a21f6154c512bb17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fadbecf967fdbe47de03155caac1753"><td class="memItemLeft" align="right" valign="top"><a id="a4fadbecf967fdbe47de03155caac1753" name="a4fadbecf967fdbe47de03155caac1753"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>weaklyConnected</b> () const =0</td></tr>
 <tr class="separator:a4fadbecf967fdbe47de03155caac1753"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d745f3937f8330825e39f4f8f1cb404"><td class="memItemLeft" align="right" valign="top"><a id="a9d745f3937f8330825e39f4f8f1cb404" name="a9d745f3937f8330825e39f4f8f1cb404"></a>
-virtual std::vector&lt; unsigned &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getRouteVertices</b> (unsigned from, unsigned to) const =0</td></tr>
-<tr class="separator:a9d745f3937f8330825e39f4f8f1cb404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2c137f1fc0990c3ef21c8373d5c2854"><td class="memItemLeft" align="right" valign="top"><a id="ad2c137f1fc0990c3ef21c8373d5c2854" name="ad2c137f1fc0990c3ef21c8373d5c2854"></a>
+virtual std::vector&lt; unsigned &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getPathVertices</b> (unsigned from, unsigned to) const =0</td></tr>
+<tr class="separator:ad2c137f1fc0990c3ef21c8373d5c2854"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76774762c1422f7486a6ffb873fea9db"><td class="memItemLeft" align="right" valign="top"><a id="a76774762c1422f7486a6ffb873fea9db" name="a76774762c1422f7486a6ffb873fea9db"></a>
 virtual T_vertices &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> (unsigned vertex)=0</td></tr>
 <tr class="separator:a76774762c1422f7486a6ffb873fea9db"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,6 +143,12 @@ virtual T_edges &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>oper
 <tr class="memitem:a4ce67442a873407b7f1ef0a90221df00"><td class="memItemLeft" align="right" valign="top"><a id="a4ce67442a873407b7f1ef0a90221df00" name="a4ce67442a873407b7f1ef0a90221df00"></a>
 virtual const T_edges &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> (unsigned from, unsigned to) const =0</td></tr>
 <tr class="separator:a4ce67442a873407b7f1ef0a90221df00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a3a2c77ad1eea020155868c18c00d90dd"><td class="memItemLeft" align="right" valign="top"><a id="a3a2c77ad1eea020155868c18c00d90dd" name="a3a2c77ad1eea020155868c18c00d90dd"></a>
+std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;&lt;</b> (std::ostream &amp;ofs, const <a class="el" href="class_graph.html">Graph</a>&lt; T_vertices, T_edges &gt; &amp;graph)</td></tr>
+<tr class="separator:a3a2c77ad1eea020155868c18c00d90dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="_graph_8h_source.html">Graph.h</a></li>
